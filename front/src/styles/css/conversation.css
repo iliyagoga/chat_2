@@ -1,0 +1,24 @@
+.body {
+  width: 70%;
+  margin: auto;
+}
+.body .b {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  width: 100%;
+}
+.body .b .left {
+  margin-left: auto;
+  background: white;
+  padding: 1rem;
+  min-width: 30%;
+  border-radius: 20px;
+}
+.body .b .right {
+  margin-right: auto;
+  background: white;
+  padding: 1rem;
+  min-width: 30%;
+  border-radius: 20px;
+}

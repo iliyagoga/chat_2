@@ -1,0 +1,16 @@
+.info_block {
+  display: flex;
+  align-items: center;
+}
+.info_block .img {
+  width: 5rem;
+  display: flex;
+  border-radius: 100%;
+}
+.info_block .img img {
+  width: 100%;
+  border-radius: 100%;
+}
+.info_block .name {
+  font-size: 1.2rem;
+}

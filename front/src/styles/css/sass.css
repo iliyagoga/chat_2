@@ -1,0 +1,223 @@
+body {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 768px) {
+  html {
+    font-size: 10px;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #8C4CBF;
+  padding: 1rem 2rem;
+}
+.header select {
+  background: #8C4CBF;
+  border: 0;
+  font-size: 1.5rem;
+  outline: none;
+}
+.header .pencil {
+  margin-left: auto;
+}
+.header .list {
+  margin-left: 2rem;
+}
+
+.info_block {
+  display: flex;
+  align-items: center;
+}
+.info_block .img {
+  width: 5rem;
+  display: flex;
+  border-radius: 100%;
+}
+.info_block .img img {
+  width: 100%;
+  border-radius: 100%;
+}
+.info_block .name {
+  font-size: 1.2rem;
+}
+
+.body {
+  background: #A0A7E9;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  height: 100vh;
+}
+@media only screen and (max-width: 768px) {
+  .body {
+    padding: 1rem 0.5rem;
+  }
+}
+.body .message_stroke {
+  display: flex;
+  align-items: center;
+  background: white;
+  width: 100%;
+  border-radius: 20px;
+  margin-top: 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  padding: 0 2rem;
+}
+@media only screen and (max-width: 768px) {
+  .body .message_stroke {
+    padding: 0 0.5rem;
+  }
+}
+.body .message_stroke p {
+  margin: auto;
+  padding: 0 2rem;
+}
+.body .message_stroke .visible {
+  margin-left: 2rem;
+}
+.body .message_stroke:hover {
+  background: #d8d8d8;
+}
+
+.header_con {
+  display: flex;
+  background: #8C4CBF;
+  justify-content: center;
+  color: white;
+  padding: 0.2rem 0;
+}
+.header_con img {
+  cursor: pointer;
+  padding: 1rem 2rem;
+}
+.header_con img:hover {
+  background: rgba(141, 141, 141, 0.3098039216);
+}
+
+.two {
+  justify-content: space-evenly;
+}
+
+html {
+  overflow: hidden;
+}
+
+.container {
+  background: #C4CAFB;
+}
+
+.body {
+  width: 50rem;
+  margin: auto;
+  overflow: hidden;
+  box-sizing: border-box;
+  background: #C4CAFB;
+}
+@media only screen and (max-width: 768px) {
+  .body {
+    max-width: 40rem;
+    width: 100%;
+  }
+}
+.body .b {
+  overflow-y: scroll;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 10rem;
+}
+.body .b .left {
+  margin-left: auto;
+  word-wrap: break-word;
+  background: white;
+  padding: 2rem 1rem;
+  width: 20rem;
+  border-radius: 20px;
+  font-size: 1.5rem;
+}
+.body .b .left:hover {
+  cursor: pointer;
+  background: #dbdbdb;
+}
+@media only screen and (max-width: 768px) {
+  .body .b .left {
+    width: 15rem;
+    font-size: 1.2rem;
+  }
+}
+.body .b .right {
+  margin-right: auto;
+  word-wrap: break-word;
+  background: white;
+  padding: 2rem 1rem;
+  width: 20rem;
+  border-radius: 20px;
+  font-size: 1.5rem;
+}
+.body .b .right:hover {
+  cursor: pointer;
+  background: #dbdbdb;
+}
+@media only screen and (max-width: 768px) {
+  .body .b .right {
+    width: 15rem;
+    font-size: 1.2rem;
+  }
+}
+.body .b::-webkit-scrollbar {
+  width: 0;
+}
+
+.intext {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  background: white;
+  width: 100%;
+  border-radius: 20px;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+@media only screen and (max-width: 768px) {
+  .intext {
+    padding: 1rem 0;
+  }
+}
+.intext textarea {
+  outline: 0;
+  border: 0;
+  width: 25rem;
+  margin: 0 10rem 0 2rem;
+}
+@media only screen and (max-width: 768px) {
+  .intext textarea {
+    width: 10rem;
+  }
+}
+.intext img:hover {
+  cursor: pointer;
+}
+@media only screen and (max-width: 768px) {
+  .intext img {
+    width: 3rem;
+  }
+}
+
+.status {
+  font-family: sans-serif;
+  color: #777777;
+  position: absolute;
+  top: 7rem;
+  left: 1rem;
+  text-align: center;
+}
