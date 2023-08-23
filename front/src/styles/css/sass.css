@@ -47,7 +47,13 @@ body {
   font-size: 1.2rem;
 }
 
-.body {
+.container_c {
+  flex-direction: column;
+  display: flex;
+  background: #A0A7E9;
+}
+
+.body_c {
   background: #A0A7E9;
   display: flex;
   align-items: start;
@@ -56,11 +62,11 @@ body {
   height: 100vh;
 }
 @media only screen and (max-width: 768px) {
-  .body {
+  .body_c {
     padding: 1rem 0.5rem;
   }
 }
-.body .message_stroke {
+.body_c .message_stroke {
   display: flex;
   align-items: center;
   background: white;
@@ -72,18 +78,18 @@ body {
   padding: 0 2rem;
 }
 @media only screen and (max-width: 768px) {
-  .body .message_stroke {
+  .body_c .message_stroke {
     padding: 0 0.5rem;
   }
 }
-.body .message_stroke p {
+.body_c .message_stroke p {
   margin: auto;
   padding: 0 2rem;
 }
-.body .message_stroke .visible {
+.body_c .message_stroke .visible {
   margin-left: 2rem;
 }
-.body .message_stroke:hover {
+.body_c .message_stroke:hover {
   background: #d8d8d8;
 }
 
@@ -220,4 +226,168 @@ html {
   top: 7rem;
   left: 1rem;
   text-align: center;
+}
+
+.html {
+  overflow: scroll;
+}
+
+.container {
+  height: 100vh;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container .login {
+  background: #C4CAFB;
+  width: 30rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5rem 0;
+  font-family: sans-serif;
+  border-radius: 20px;
+}
+.container .login h2 {
+  font-size: 1.6rem;
+}
+.container .login div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+.container .login div input {
+  padding: 0.5rem 1.25rem;
+  border: 0;
+  outline: 0;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  background-color: white;
+  border-radius: 10px;
+}
+.container .login a {
+  display: block;
+  cursor: pointer;
+  padding: 1rem 4rem;
+  background: white;
+  margin-top: 4rem;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  width: -moz-max-content;
+  width: max-content;
+  background: #C4CAFB;
+}
+.container .login a:hover {
+  background: #e6e6e6;
+}
+
+.container_p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #C4CAFB;
+  height: 100vh;
+  font-family: sans-serif;
+}
+.container_p .header_p {
+  width: 100%;
+  padding: 0.625rem 1rem;
+}
+.container_p .body_p {
+  border-radius: 0.9375rem;
+  background: white;
+  padding: 1.375rem 2.5rem;
+}
+.container_p .body_p .leave {
+  display: flex;
+  justify-content: end;
+}
+.container_p .body_p .info {
+  display: flex;
+  align-items: center;
+}
+.container_p .body_p .info img {
+  width: 10rem;
+}
+.container_p .body_p .cont div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+.container_p .body_p .cont div input,
+.container_p .body_p .cont div select {
+  padding: 0.5rem 1.25rem;
+  border: 0;
+  outline: 0;
+  font-size: 1.5rem;
+  margin-top: 0.5rem;
+  background-color: #C4CAFB;
+  border-radius: 10px;
+}
+.container_p .body_p a {
+  cursor: pointer;
+  padding: 1rem 4rem;
+  background: white;
+  margin: auto;
+  margin-top: 4rem;
+  border-radius: 20px;
+  font-size: 1.5rem;
+}
+.container_p .body_p a:hover {
+  background: #e6e6e6;
+}
+
+.searchModal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  background: rgba(87, 87, 87, 0.4862745098);
+}
+.searchModal .modal {
+  background: #C4CAFB;
+  border-radius: 20px;
+  padding: 2.875rem 3.4375rem;
+  position: relative;
+  overflow: hidden;
+  margin-top: 10rem;
+}
+.searchModal .modal .remove {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+}
+.searchModal .modal .search_container div {
+  background: white;
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  padding: 1rem 3.125rem;
+  border-radius: 30px;
+}
+.searchModal .modal .search_container div input {
+  outline: none;
+  font-size: 1.5rem;
+  border: 0;
+  padding-right: 1rem;
+}
+.searchModal .modal .line {
+  background: black;
+  height: 2px;
+  width: 90%;
+  margin: auto;
+  margin-top: 2rem;
+}
+.searchModal .modal .body_s {
+  overflow-y: scroll;
+}
+.searchModal .modal .body_s .searchperson img {
+  width: 10rem;
 }

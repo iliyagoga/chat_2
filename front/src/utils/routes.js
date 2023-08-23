@@ -1,4 +1,6 @@
 export const routes={
 messages: '/messages',
-conversation: '/conversation'
+conversation: '/conversation',
+login: '/login',
+profile: '/profile'
 }
