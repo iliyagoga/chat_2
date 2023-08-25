@@ -35,7 +35,6 @@ const Files=sequelize.define('Files',{
 const Messages=sequelize.define('Messages',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
     message:{type: DataTypes.STRING},
-    from:{type: DataTypes.INTEGER},
     createdate:{type:DataTypes.INTEGER}
 })
 
@@ -53,6 +52,9 @@ Subscribers.belongsTo(Users)
 
 Chats.hasMany(Messages)
 Messages.belongsTo(Chats)
+
+Subscribers.hasMany(Messages)
+Messages.belongsTo(Subscribers)
 
 Chats.hasMany(Roles)
 Roles.belongsTo(Chats)
