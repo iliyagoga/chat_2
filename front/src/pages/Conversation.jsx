@@ -2,7 +2,7 @@ import HeaderCon from "../componets/HeaderCon";
 import send from '../assets/send.png'
 import file from '../assets/file.png'
 export default function Conversation(){
-    return <div className="container">
+    return <div className="container_con">
         <HeaderCon check={false}></HeaderCon>
         <p className="status">Печатает...</p>
         <div className="body">

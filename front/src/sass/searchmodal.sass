@@ -12,8 +12,9 @@
         border-radius: 20px
         padding: 2.875rem 3.4375rem
         position: relative
+        top: 5rem
         overflow: hidden
-        margin-top: 10rem
+        height: 80%
         .remove
             position: absolute
             right: 1rem
@@ -32,6 +33,9 @@
                     font-size: 1.5rem
                     border: 0
                     padding-right: 1rem
+                    width: 100%
+                img
+                    cursor: pointer
         .line
             background: black
             height: 2px
@@ -40,6 +44,17 @@
             margin-top: 2rem
         .body_s
             overflow-y: scroll
+            height: 90%
             .searchperson
+                display: flex
+                align-items: center
+                background: white
+                margin: .5rem 1rem
+                border-radius: 10px
+                cursor: pointer
                 img
                     width: 10rem
+                &:hover
+                    background: #e6e6e6
+            &::-webkit-scrollbar 
+                width: 0

@@ -2,6 +2,7 @@
     flex-direction: column
     display: flex
     background: $bg-blue
+    height: 100vh
 .body_c
     background: $bg-blue
     display: flex
@@ -9,6 +10,7 @@
     flex-direction: column
     padding: 1rem 2rem
     height: 100vh
+    overflow-y: scroll
     @include media("sml")
         padding: 1rem .5rem
     .message_stroke
@@ -30,3 +32,5 @@
             margin-left: 2rem
         &:hover
             background: #d8d8d8
+    &::-webkit-scrollbar 
+        width: 0

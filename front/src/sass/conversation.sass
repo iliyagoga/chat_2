@@ -1,21 +1,19 @@
-html
-    overflow: hidden
-.container
+
+.container_con
     background: $bg-blue-light
 .body
     width: 50rem
     margin: auto
     overflow: hidden
+    position: relative
+    height: 100vh
     box-sizing: border-box
     background: $bg-blue-light
     @include media("sml")
         max-width: 40rem
         width: 100%
     .b
-        overflow-y: scroll
-        display: flex
-        margin: auto
-        flex-direction: column
+        overflow: scroll
         width: 100%
         padding-bottom: 10rem
         .left
@@ -48,9 +46,7 @@ html
             @include media("sml")
                 width: 15rem
                 font-size: 1.2rem
-            
-        &::-webkit-scrollbar 
-            width: 0
+
 .intext
     box-sizing: border-box
     position: absolute
