@@ -5,7 +5,10 @@ const cors=require('cors')
 const models = require('./models/model')
 const filesUpload = require('express-fileupload')
 const path= require('path')
+const router = require('./router')
 const app=express()
+app.use(express.json())
+app.use('/',router)
 async function start(){
     try {
         await sequelize.authenticate()

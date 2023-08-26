@@ -58,4 +58,5 @@ Messages.belongsTo(Subscribers)
 
 Chats.hasMany(Roles)
 Roles.belongsTo(Chats)
+module.exports={Users,Roles,Messages, Files, Subscribers}
 
