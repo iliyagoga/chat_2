@@ -2,7 +2,8 @@ const routes={
     login: {
         way: '/login',
         login: '/l',
-        reg:'/reg'
+        reg:'/reg',
+        check:'/check'
     }
     
 }
