@@ -4,10 +4,20 @@ const bcrypt =require('bcrypt')
 async function login(req,res){
     const Check=await Users.findOne({where:{nickname:req.body.nickname}})
     if(Check!=null){
+        const def={
+            id:Check.dataValues.id,
+            nickname: Check.dataValues.nickname,
+            name: Check.dataValues.name,
+            sername: Check.dataValues.sername,
+            phone:Check.dataValues.phone,
+            avatar:Check.dataValues.avatar,
+            date: Check.dataValues.date,
+            regdate:Check.dataValues.regdate
+        }
         const {password}=req.body
         const h=await bcrypt.compare(password,Check.password)
         if(h){
-            res.json(jwt.sign({Check},process.env.SECRET_KEY,{expiresIn:'24h'}))
+            res.json(jwt.sign(def,process.env.SECRET_KEY,{expiresIn:'24h'}))
         }
         else{
             res.status(404).json('Неправильный логин или пароль')
@@ -21,10 +31,20 @@ async function login(req,res){
 async function reg(req,res){
     const Check=await Users.findOne({where:{nickname:req.body.nickname}})
     if(Check==null){
+        const def={
+            id:Check.dataValues.id,
+            nickname: Check.dataValues.nickname,
+            name: Check.dataValues.name,
+            sername: Check.dataValues.sername,
+            phone:Check.dataValues.phone,
+            avatar:Check.dataValues.avatar,
+            date: Check.dataValues.date,
+            regdate:Check.dataValues.regdate
+        }
         const {nickname,password}=req.body
         const hash = await bcrypt.hash(password,10)
-        const result= await Users.create({nickname : nickname, password: hash})
-        res.json(jwt.sign({result},process.env.SECRET_KEY,{expiresIn:'24h'}))
+        const Check= await Users.create({nickname : nickname, password: hash})
+        res.json(jwt.sign(def,process.env.SECRET_KEY,{expiresIn:'24h'}))
     }
     else{
         res.status(404).json('Такой пользователь существует')

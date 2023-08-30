@@ -1,54 +1,64 @@
 import home from '../assets/home.png'
+import axios from 'axios'
 import leave from '../assets/leave.png'
 import ava from '../assets/def_ava.png'
-export default function Profile(){
+import { useNavigate } from 'react-router-dom'
+import { routes } from '../utils/routes'
+import {l} from '../utils/functions'
+import { useState } from 'react'
+import { config } from '../utils/config'
+import jwt from 'jwt-decode'
+import store from '../store/store'
+import {observer} from 'mobx-react-lite'
+const Profile=observer(()=>{
+    const token=jwt(store.getToken())
+    const nav=useNavigate()
+    const [name,setName]=useState(token.name||'')
+    const [sername, setSername]=useState(token.sername||'')
+    const [tel,setTel]=useState(token.phone||'')    
+    const [nick,setNick]=useState(token.nickname)
+    const [date,setDate]=useState(token.date||'')
+
     return <div className="container_p">
         <div className="header_p">
-            <img src={home} alt="" />
+            <img src={home} alt="" onClick={()=>{nav(routes.messages)}}/>
         </div>
         <div className='body_p'>
-            <div className='leave'>
+            <div className='leave' onClick={()=>{l(nav)}}>
                 <img src={leave} alt="" />
             </div>
             <div className='info'>
                 <img src={ava} alt="" />
                 <div>
-                    <p>имя фамилия</p>
-                    <p>никнейм</p>
+                    <p>{name} {sername}</p>
+                    <p>{nick}</p>
                 </div>
             </div>
             <div className='cont'>
                 <div>
                     <label htmlFor="name">Имя</label>
-                    <input type="text" id='name'placeholder="Имя"/>
-                </div>
-                <div>
-                    <label htmlFor="male">Пол</label>
-                    <select name="" id="male">
-                        <option value="def">Пол</option>
-                        <option value="male">Муж</option>
-                        <option value="female">Жен</option>
-                    </select>
+                    <input value={name} onChange={(e)=>{setName(e.target.value)}}type="text" id='name'placeholder="Имя"/>
                 </div>
                 <div>
                     <label htmlFor="sernmae">Фамилия</label>
-                    <input type="text" id='sername'placeholder="Фамилия"/>
+                    <input value={sername} onChange={(e)=>{setSername(e.target.value)}} type="text" id='sername'placeholder="Фамилия"/>
                 </div>
                 <div>
                     <label htmlFor="tel">Телефон</label>
-                    <input type="tel" id='tel'placeholder="Телефон"/>
+                    <input value={tel} onChange={(e)=>{setTel(e.target.value)}} type="tel" id='tel'placeholder="Телефон"/>
                 </div>
                 <div>
                     <label htmlFor="nick">Ник</label>
-                    <input type="text" id='nick'placeholder="Ник"/>
+                    <input value={nick} onChange={(e)=>{setNick(e.target.value)}} type="text" id='nick'placeholder="Ник"/>
                 </div>
                 <div>
                     <label htmlFor="date">Дата рождения</label>
-                    <input type="date" id='date' />
+                    <input value={date} onChange={(e)=>{setDate(e.target.value)}} type="date" id='date' />
                 </div>
             </div>
             
             <a>Сохранить</a>
         </div>
     </div>
-}
+})
+export default Profile
