@@ -4,15 +4,16 @@ import leave from '../assets/leave.png'
 import ava from '../assets/def_ava.png'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../utils/routes'
-import {l} from '../utils/functions'
+import { l} from '../utils/functions'
 import { useState } from 'react'
-import { config } from '../utils/config'
 import jwt from 'jwt-decode'
 import store from '../store/store'
 import {observer} from 'mobx-react-lite'
 const Profile=observer(()=>{
-    const token=jwt(store.getToken())
     const nav=useNavigate()
+    let token;
+    token=jwt(store.getToken())
+
     const [name,setName]=useState(token.name||'')
     const [sername, setSername]=useState(token.sername||'')
     const [tel,setTel]=useState(token.phone||'')    
