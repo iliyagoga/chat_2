@@ -29,8 +29,11 @@ async function login(req,res){
     }
 }
 async function reg(req,res){
-    const Check=await Users.findOne({where:{nickname:req.body.nickname}})
-    if(Check==null){
+    const c=await Users.findOne({where:{nickname:req.body.nickname}})
+    if(c==null){
+        const {nickname,password}=req.body
+        const hash = await bcrypt.hash(password,10)
+        const Check= await Users.create({nickname : nickname, password: hash})
         const def={
             id:Check.dataValues.id,
             nickname: Check.dataValues.nickname,
@@ -41,9 +44,6 @@ async function reg(req,res){
             date: Check.dataValues.date,
             regdate:Check.dataValues.regdate
         }
-        const {nickname,password}=req.body
-        const hash = await bcrypt.hash(password,10)
-        const Check= await Users.create({nickname : nickname, password: hash})
         res.json(jwt.sign(def,process.env.SECRET_KEY,{expiresIn:'24h'}))
     }
     else{

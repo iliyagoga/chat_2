@@ -4,10 +4,6 @@ export const config={
     apiLogin:'login/l',
     apiCheck:'login/check',
     apiGetUser:'profile/getUser',
-    apiSetName: 'profile/sn',
-    apiSetSername: 'profile/ss',
-    apiSetNick: 'profile/snick',
-    apiSetDate: 'profile/sdate',
-    apiSetTel: 'profile/sp',
+    apiSetInfo:'profile/setInfo'
 
 }

@@ -1,47 +1,16 @@
 const { Users } = require("../models/model")
+const jwt=require('jsonwebtoken')
+async function setInfo(req,res){
+    const {id,name,sername,nickname,date,phone,avatar}=req.body
+    console.log(req.files)
+    try {
+        const r= await Users.update({name,sername,nickname,date,phone},{where: {id}})
+        if(r){
+            res.json(jwt.sign({id,name,sername,nickname,date,phone},process.env.SECRET_KEY,{expiresIn:'24h'}))
+        }
 
-async function sn(req,res){
-    const {id,name}=req.body
-    try {
-        const r= await Users.update({name},{where: {id}})
-        res.json(r)
     } catch (error) {
-        res.status(404).json(error)
-    }   
-}
-async function ss(req,res){
-    const {id,sername}=req.body
-    try {
-        const r= await Users.update({sername},{where: {id}})
-        res.json(r)
-    } catch (error) {
-        res.status(404).json(error)
-    }   
-}
-async function sp(req,res){
-    const {id,phone}=req.body
-    try {
-        const r= await Users.update({phone},{where: {id}})
-        res.json(r)
-    } catch (error) {
-        res.status(404).json(error)
-    }   
-}
-async function snick(req,res){
-    const {id,nick}=req.body
-    try {
-        const r= await Users.update({nickname:nick},{where: {id}})
-        res.json(r)
-    } catch (error) {
-        res.status(404).json(error)
-    }   
-}
-async function sdate(req,res){
-    const {id,date}=req.body
-    try {
-        const r= await Users.update({date},{where: {id}})
-        res.json(r)
-    } catch (error) {
+        console.log(error)
         res.status(404).json(error)
     }   
 }
@@ -50,4 +19,4 @@ async function getUser(req,res){
     const r=await Users.findOne({where:{id},attributes:['name','sername','nickname','date','phone']})
     res.json(r)
 }
-module.exports={sn,ss,sp,snick,sdate,getUser}
+module.exports={setInfo,getUser}

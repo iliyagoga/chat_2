@@ -12,8 +12,8 @@ const Users=sequelize.define('Users',{
     sername: {type: DataTypes.STRING},
     phone:{type: DataTypes.INTEGER,unique: true},
     avatar: {type: DataTypes.STRING},
-    date:{type: DataTypes.INTEGER},
-    regdate:{type:DataTypes.INTEGER}
+    date:{type: DataTypes.STRING},
+    regdate:{type:DataTypes.STRING}
 })
 const Chats=sequelize.define('Chats',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
@@ -26,7 +26,7 @@ const Chats=sequelize.define('Chats',{
 })
 const Subscribers=sequelize.define('Sybscribers',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
-    subdate:{type:DataTypes.INTEGER},
+    subdate:{type:DataTypes.STRING},
 })
 const Files=sequelize.define('Files',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
@@ -35,7 +35,7 @@ const Files=sequelize.define('Files',{
 const Messages=sequelize.define('Messages',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
     message:{type: DataTypes.STRING},
-    createdate:{type:DataTypes.INTEGER}
+    createdate:{type:DataTypes.STRING}
 })
 
 Users.hasMany(Roles)

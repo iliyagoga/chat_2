@@ -11,12 +11,12 @@ const Router=observer(()=>{
     const t=localStorage.getItem('token')
     const nav=useNavigate()
     if(t!=null){
+        store.setToken(t)
         let token;
         token=checkToken(nav)
         if(!token){
             l(nav)
         }
-        store.setToken(t)
     }
     return <Routes>
         {store.getToken()&&<>

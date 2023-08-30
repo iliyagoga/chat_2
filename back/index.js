@@ -9,6 +9,8 @@ const router = require('./router')
 const app=express()
 app.use(express.json())
 app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(filesUpload({}))
+app.use(express.static(path.resolve(__dirname, 'static')))
 app.use('/',router)
 async function start(){
     try {
