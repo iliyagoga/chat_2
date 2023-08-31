@@ -4,6 +4,7 @@ export const config={
     apiLogin:'login/l',
     apiCheck:'login/check',
     apiGetUser:'profile/getUser',
-    apiSetInfo:'profile/setInfo'
+    apiSetInfo:'profile/setInfo',
+    apiSearch:'search/get'
 
 }

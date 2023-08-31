@@ -6,3 +6,9 @@ export const validation=(data)=>{
         return false
     }
 }
+export const checkEmpry=(text)=>{
+    if(text.length==0){
+        return false
+    }
+    return true
+}

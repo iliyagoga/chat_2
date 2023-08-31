@@ -1,8 +1,11 @@
 const loginRouter=require('./routes/loginRouter')
 const profileRouter=require('./routes/profileRouter')
+const searchRouter=require('./routes/searchRouter')
 const routes=require('./routes')
 const Router=require('express')
+const tokenValid = require('./middlewares/tokenValid')
 const router=new Router()
 router.use(routes.login.way,loginRouter)
-router.use(routes.profile.way,profileRouter)
+router.use(routes.profile.way,tokenValid,profileRouter)
+router.use(routes.search.way,searchRouter)
 module.exports=router

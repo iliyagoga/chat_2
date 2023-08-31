@@ -10,6 +10,10 @@ const routes={
         setInfo:'/setInfo',
         getInfo: '/getUser'
         
+    },
+    search:{
+        way:'/search',
+        get: '/get'
     }
     
 }

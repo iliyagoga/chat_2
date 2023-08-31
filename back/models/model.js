@@ -6,7 +6,7 @@ const Roles =sequelize.define('Roles',{
 })
 const Users=sequelize.define('Users',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
-    nickname:{type: DataTypes.STRING,allowNull: false},
+    nickname:{type: DataTypes.STRING,allowNull: false,unique:true},
     password:{type: DataTypes.STRING,allowNull: false},
     name: {type: DataTypes.STRING},
     sername: {type: DataTypes.STRING},
