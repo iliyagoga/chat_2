@@ -5,6 +5,9 @@ export const config={
     apiCheck:'login/check',
     apiGetUser:'profile/getUser',
     apiSetInfo:'profile/setInfo',
-    apiSearch:'search/get'
+    apiSearch:'search/get',
+    conversation: 'chat/conversation/',
+    getChats:'chat/getChats',
+    check: 'chat/check'
 
 }

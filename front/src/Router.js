@@ -18,6 +18,7 @@ const Router=observer(()=>{
             l(nav)
         }
     }
+    
     return <Routes>
         {store.getToken()&&<>
         <Route path={routes.messages} element={<MessagesList/>}></Route>

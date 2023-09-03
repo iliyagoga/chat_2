@@ -1,11 +1,13 @@
 import ava from '../assets/def_ava.png'
-export default function AutorInfoBlock(){
+import { config } from '../utils/config'
+export default function AutorInfoBlock({nickname,avatar}){
+    console.log(avatar)
     return <div className="info_block">
         <div className='img'>
-            <img src={ava} alt="" />
+            <img src={avatar?config.backHost+ avatar:ava} alt="" />
         </div>
         <div className='name'>
-            fdsfdsfdsfd
+           {nickname}
         </div>
     </div>
 }

@@ -14,6 +14,11 @@ const routes={
     search:{
         way:'/search',
         get: '/get'
+    },
+    chat:{
+        way:'/chat',
+        check: '/check',
+        getChats: '/getChats'
     }
     
 }

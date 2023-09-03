@@ -16,7 +16,7 @@ const Users=sequelize.define('Users',{
     regdate:{type:DataTypes.STRING}
 })
 const Chats=sequelize.define('Chats',{
-    id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
+    id: {type: DataTypes.STRING, primaryKey: true, unique:true},
     name: {type: DataTypes.STRING},
     avatar: {type: DataTypes.STRING},
     createdate:{type:DataTypes.INTEGER},
@@ -24,9 +24,15 @@ const Chats=sequelize.define('Chats',{
     info:{type:DataTypes.STRING},
     moot:{type: DataTypes.BOOLEAN}
 })
-const Subscribers=sequelize.define('Sybscribers',{
+const Local=sequelize.define('Local',{
+    id: {type: DataTypes.STRING, primaryKey: true, unique:true},
+    subscribers:{type: DataTypes.STRING}
+})
+const Subscribers=sequelize.define('Subscribers',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
-    subdate:{type:DataTypes.STRING},
+})
+const Senders=sequelize.define('Senders',{
+    id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
 })
 const Files=sequelize.define('Files',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
@@ -44,19 +50,17 @@ Roles.belongsTo(Users)
 Messages.hasMany(Files)
 Files.belongsTo(Messages)
 
-Chats.hasMany(Subscribers)
-Subscribers.belongsTo(Chats)
 
-Users.hasMany(Subscribers)
-Subscribers.belongsTo(Users)
+Chats.belongsToMany(Users, {through: 'Subscribers'})
+Users.belongsToMany(Chats, {through: 'Subscribers'})
 
 Chats.hasMany(Messages)
 Messages.belongsTo(Chats)
 
-Subscribers.hasMany(Messages)
-Messages.belongsTo(Subscribers)
+Messages.hasMany(Senders)
+Senders.belongsTo(Messages)
 
 Chats.hasMany(Roles)
 Roles.belongsTo(Chats)
-module.exports={Users,Roles,Messages, Files, Subscribers}
+module.exports={Users,Chats, Roles,Messages, Files, Subscribers,Local}
 

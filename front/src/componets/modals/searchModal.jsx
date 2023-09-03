@@ -13,9 +13,11 @@ export default function SearchModal({onHide}){
     if(!c2 && c1){
         onHide()
     }
-    async function serch(e){
-        setSearch(e.target.value)
-        const result=await axios.post(config.backHost+config.apiSearch,{text:e.target.value},{headers:{
+    async function serch(){
+        if(s==0){
+            setPeople([])
+        }
+        const result=await axios.post(config.backHost+config.apiSearch,{text:s},{headers:{
             Authorization: 'Bearer '+store.getToken()}})
         setPeople(result.data)
     }
@@ -24,8 +26,8 @@ export default function SearchModal({onHide}){
             <img className="remove"src={rem} alt="" onClick={()=>{onHide();setC1(false);setC2(false)}}/>
             <div className="search_container">
                 <div>
-                    <input value={s} onChange={serch} type="search" placeholder='Поиск'/>
-                    <img src={search} alt="" />
+                    <input value={s} onChange={(e)=>{setSearch(e.target.value)}} type="search" placeholder='Поиск'/>
+                    <img src={search} onClick={serch} alt="" />
                 </div>
             </div>
             <div className='line'></div>
