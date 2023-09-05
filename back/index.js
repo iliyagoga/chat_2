@@ -14,6 +14,7 @@ app.use(filesUpload({}))
 app.use(express.static(path.resolve(__dirname, 'static')))
 app.use('/',router)
 const hoomeRoom=uuid.v4()
+//process.env.DEBUG="*"
 let io
 function onConnection(socket){
     socket.on('@createMLRoom',(req)=>{
@@ -22,7 +23,7 @@ function onConnection(socket){
     socket.on('@joinRoom',(r)=>{
         socket.join(r.message.room)
         socket.on('@sendClient',(req)=>{
-            io.in(r.message.room).emit('@sendServer',{message:req.message,id:req.id})
+            io.in(r.message.room).emit('@sendServer',{message:req.message,id:req.id,LocalId:r.message.room})
             io.in('@home'+r.message.personId).emit('@sendServer2',{
                 message:req.message,
                 chatId:r.message.chatId,

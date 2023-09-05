@@ -19,27 +19,31 @@ const Chats=sequelize.define('Chats',{
     id: {type: DataTypes.STRING, primaryKey: true, unique:true},
     name: {type: DataTypes.STRING},
     avatar: {type: DataTypes.STRING},
-    createdate:{type:DataTypes.INTEGER},
-    mode:{type:DataTypes.STRING},
     info:{type:DataTypes.STRING},
     moot:{type: DataTypes.BOOLEAN}
 })
 const Local=sequelize.define('Local',{
     id: {type: DataTypes.STRING, primaryKey: true, unique:true},
-    subscribers:{type: DataTypes.STRING}
 })
 const Subscribers=sequelize.define('Subscribers',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
+    subscriber:{type: DataTypes.STRING},
+    mode:{type:DataTypes.BOOLEAN}
 })
 const Senders=sequelize.define('Senders',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
+    sender:{type: DataTypes.STRING}
+})
+const Recipients=sequelize.define('Recipients',{
+    id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
+    recipient:{type: DataTypes.STRING}
 })
 const Files=sequelize.define('Files',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
     file:{type: DataTypes.STRING}
 })
 const Messages=sequelize.define('Messages',{
-    id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
+    id: {type: DataTypes.STRING,unique:true, primaryKey: true},
     message:{type: DataTypes.STRING},
     createdate:{type:DataTypes.STRING}
 })
@@ -57,10 +61,19 @@ Users.belongsToMany(Chats, {through: 'Subscribers'})
 Chats.hasMany(Messages)
 Messages.belongsTo(Chats)
 
-Messages.hasMany(Senders)
+Local.hasMany(Messages)
+Messages.belongsTo(Local)
+
+Local.hasMany(Subscribers)
+Subscribers.belongsTo(Local)
+
+Messages.hasOne(Senders)
 Senders.belongsTo(Messages)
+
+Messages.hasOne(Recipients)
+Recipients.belongsTo(Messages)
 
 Chats.hasMany(Roles)
 Roles.belongsTo(Chats)
-module.exports={Users,Chats, Roles,Messages, Files, Subscribers,Local}
+module.exports={Users,Chats, Roles,Messages, Files, Subscribers,Local,Senders,Recipients}
 

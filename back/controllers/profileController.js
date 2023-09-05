@@ -10,6 +10,13 @@ async function setInfo(req,res){
         res.status(404).json('Ник не должен быть пустым')
     }
     else{
+
+        if(phone==undefined)
+        {
+            phone=null
+        }
+        
+        else
         if(phone.length==0){
             phone=null
         }

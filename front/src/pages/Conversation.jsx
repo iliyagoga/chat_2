@@ -9,6 +9,7 @@ import { config } from "../utils/config";
 import { useEffect, useState } from "react";
 import randomstring from 'randomstring'
 import { useParams } from "react-router-dom";
+import { routes } from "../utils/routes";
 const Conversation =observer(()=>{
     const socket=store.getSocket()
     const params=useParams()
@@ -20,7 +21,7 @@ const Conversation =observer(()=>{
     const mynickname=jwtDecode(store.getToken()).nickname
     const myavatar=jwtDecode(store.getToken()).avatar
     const [action,setAction]=useState(false)
-    async function get(){
+    async function get(room){
         try {
             const r= await axios.post(
                 config.backHost+config.check,
@@ -29,46 +30,65 @@ const Conversation =observer(()=>{
                     nick2: jwtDecode(localStorage.getItem('token')).nickname,
                     id1: store.getAId(),
                     id2:jwtDecode(localStorage.getItem('token')).id,
-                    mode:'locale'},
+                    mode:'locale',
+                room},
                 {headers:{
                     Authorization: 'Bearer '+store.getToken(), 
                     "Content-Type": "multipart/form-data"}
                 })
+                return r.data
         } catch (error) {
             
         }
     }
-    //get()
-    const getter=()=>{
+
+    const getter=(roomid)=>{
         socket.on('@sendServer',(req)=>{
             setMessages(messages=>[...messages,{message:req.message,id:req.id}])
+            axios.post(config.backHost+routes.chat+routes.createMessageLocal,{message:req.message,LocalId: req.LocalId,sender:req.id,recipient: store.getAId()},{headers:{
+                Authorization: 'Bearer '+store.getToken(), 
+                "Content-Type": "multipart/form-data"}
+            })
         })
     }
     const setter=()=>{
         socket.emit('@sendClient',{message: textarea,id:myid})
+        
         setTextarea('')
     }
     useEffect(()=>{
-        socket.emit('@joinRoom',{message:{room:idroom2,personId:store.getAId(),chatId:idroom,nickname:mynickname,myavatar:myavatar}})
-        getter()
+        let roomid
+        get(idroom2).then(r=>{
+            roomid=r.LocalId
+            axios.post(config.backHost+routes.chat+routes.getLocalMessage,{LocalId: roomid},{headers:{
+                Authorization: 'Bearer '+store.getToken(), 
+                "Content-Type": "multipart/form-data"}
+            }).then(r=>{
+                r.data.map(v=>{setMessages(messages=>[...messages,{message:v.message,id:v.Sender.sender}])})
+            })
+            socket.emit('@joinRoom',{message:{room:roomid,personId:store.getAId(),chatId:idroom,nickname:mynickname,myavatar:myavatar}})
+            getter(roomid)
+        })
+        
+        
 
     },[])
   
     useEffect(()=>{
-        socket.on('@setAction',(r)=>{
-            if(r.id!=myid)
-            setAction(true)
-        })
-        socket.on('@deleteAction',(r)=>{
-            if(r.id!=myid)
-            setAction(false)
-        })
-        if(textarea.length>0){
-            socket.emit('@onaction',{id:myid})
-        }
-        if(textarea.length==0){
-            socket.emit('@offaction',{id:myid})
-        }
+        // socket.on('@setAction',(r)=>{
+        //     if(r.id!=myid)
+        //     setAction(true)
+        // })
+        // socket.on('@deleteAction',(r)=>{
+        //     if(r.id!=myid)
+        //     setAction(false)
+        // })
+        // if(textarea.length>0){
+        //     socket.emit('@onaction',{id:myid})
+        // }
+        // if(textarea.length==0){
+        //     socket.emit('@offaction',{id:myid})
+        // }
     },[textarea])
     return <div className="container_con">
         <HeaderCon check={false}></HeaderCon>

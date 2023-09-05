@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import jwt from 'jwt-decode'
 import { io } from "socket.io-client";
 import jwtDecode from "jwt-decode";
+import { routes } from '../utils/routes'
 const MessagesList =observer(()=>{
     const [chats,setChats]=useState([])
     async function get(){
@@ -26,9 +27,14 @@ const MessagesList =observer(()=>{
         store.setSocket(socket)
         console.log('Подключен')
         socket.emit('@createMLRoom',{message:jwtDecode(store.getToken()).id})
+        axios.post(config.backHost+routes.chat+routes.getLastMessageLocal,{sender:jwtDecode(store.getToken()).id},{headers:{
+            Authorization: 'Bearer '+store.getToken(), 
+            "Content-Type": "multipart/form-data"}
+        }).then(r=>{
+            r.data.map((v)=>setChats((chats)=>[...chats,v]))})
         socket.on('@sendServer2',(r)=>{
 
-            setChats((chats)=>[...(chats.map((v)=>{if(v.chatId!=r.chatId) return v}).filter(function( element ) {
+            setChats((chats)=>[...(chats.map((v)=>{if(v.room!=r.room) return v}).filter(function( element ) {
                 return element !== undefined;
              }))])
             setChats((chats)=>[...chats,r])

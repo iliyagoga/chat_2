@@ -18,7 +18,12 @@ const routes={
     chat:{
         way:'/chat',
         check: '/check',
-        getChats: '/getChats'
+        getChats: '/getChats',
+        createLocalMessage: '/createLocalMessage',
+        getLocalMessage: '/getLocalMessage',
+        createRecipientMessageLocal:'/createRecipientMessageLocal',
+        getLastMessageLocal: '/getLastMessageLocal'
+        
     }
     
 }

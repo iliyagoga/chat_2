@@ -1,7 +1,10 @@
 const Router =require('express')
 const routes = require('../routes')
-const {  getChats, checkOrCreateLocal } = require('../controllers/chatController')
+const {  getChats, checkOrCreateLocal,createMessageLocal, getMessageLocal,getLocalsChats} = require('../controllers/chatController')
 const router=new Router()
 router.post(routes.chat.check,checkOrCreateLocal)
 router.post(routes.chat.getChats,getChats)
+router.post(routes.chat.createLocalMessage,createMessageLocal)
+router.post(routes.chat.getLocalMessage,getMessageLocal)
+router.post(routes.chat.getLastMessageLocal,getLocalsChats)
 module.exports=router
