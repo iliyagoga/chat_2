@@ -7,6 +7,10 @@ import Profile from './pages/Profile'
 import store from './store/store'
 import { observer } from "mobx-react-lite";
 import { checkToken, l } from './utils/functions'
+import axios from 'axios'
+import { config } from './utils/config'
+import { useEffect } from 'react'
+import ChatConversation from './pages/ChatConversation'
 const Router=observer(()=>{
     const t=localStorage.getItem('token')
     const nav=useNavigate()
@@ -18,11 +22,22 @@ const Router=observer(()=>{
             l(nav)
         }
     }
+    useEffect(()=>{
+        if(localStorage.getItem('token')){
+        axios.post(config.backHost+routes.login2+routes.check,{token:localStorage.getItem('token')}).then((r)=>{
+            if(!r.data){
+                store.setToken(null)
+                localStorage.removeItem('token')
+                nav('/login')
+            }
+        })}
+    },[])
     
     return <Routes>
         {store.getToken()&&<>
         <Route path={routes.messages} element={<MessagesList/>}></Route>
-        <Route path={routes.conversation} element={<Conversation/>}></Route>
+        <Route path={routes.conversationLocal} element={<Conversation/>}></Route>
+        <Route path={routes.conversationChat} element={<ChatConversation/>}></Route>
         <Route path={routes.profile} element={<Profile/>}></Route>
         <Route path='/*' element={<Navigate to={routes.messages}/>}></Route>
         </>

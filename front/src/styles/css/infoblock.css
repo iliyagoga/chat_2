@@ -8,9 +8,9 @@
   border-radius: 100%;
 }
 .info_block .img img {
-  width: 100%;
+  width: 80%;
   border-radius: 100%;
 }
 .info_block .name {
   font-size: 1.2rem;
-}/*# sourceMappingURL=infoblock.css.map */
+}

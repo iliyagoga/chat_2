@@ -23,7 +23,8 @@ const MessagesList =observer(()=>{
         //get()
         const socket=io('http://localhost:5000')
         socket.connect()
-        socket.emit('connection',{m:'21231'})
+        socket.emit('connection')
+        socket.emit('@connect',{message:jwtDecode(store.getToken()).id})
         store.setSocket(socket)
         console.log('Подключен')
         socket.emit('@createMLRoom',{message:jwtDecode(store.getToken()).id})
@@ -33,13 +34,10 @@ const MessagesList =observer(()=>{
         }).then(r=>{
             r.data.map((v)=>setChats((chats)=>[...chats,v]))})
         socket.on('@sendServer2',(r)=>{
-
             setChats((chats)=>[...(chats.map((v)=>{if(v.room!=r.room) return v}).filter(function( element ) {
                 return element !== undefined;
              }))])
             setChats((chats)=>[...chats,r])
-            
-            
             
         })
 
@@ -48,7 +46,7 @@ const MessagesList =observer(()=>{
     return <div className="container_c">
         <HeaderML></HeaderML>
         <div className='body_c'>
-           {chats.map((v)=>{return <MessagesStroke key={v.chatId}v={v}/>})}
+           {chats.length==0?[]:chats.map((v)=>{console.log(v);return <MessagesStroke key={v.chatId}v={v}/>})}
         </div>
     </div>
 })

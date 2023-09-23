@@ -36,6 +36,7 @@ export default function SearchModal({onHide}){
                     return <SearchPeople key={v.nickname}v={v}></SearchPeople>
                 })}
             </div>
+            <p onClick={()=>{store.setCanal(true);onHide()}}>Создать беседу</p>
 
         </div>
     </div>

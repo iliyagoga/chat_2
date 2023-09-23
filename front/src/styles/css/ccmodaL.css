@@ -1,0 +1,17 @@
+.canal_modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.canal_modal .container_c {
+  width: 30%;
+  margin: auto;
+}
+.canal_modal .container_c .ava {
+  width: 100%;
+}
+.canal_modal .container_c .ava img {
+  width: 12.5rem;
+}

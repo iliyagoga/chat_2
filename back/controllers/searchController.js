@@ -1,4 +1,4 @@
-const { Users } = require("../models/model")
+const { Users, Chats } = require("../models/model")
 const {Op} =require('sequelize')
 async function searchController(req,res){
     let{text}=(req.body)
@@ -12,7 +12,13 @@ async function searchController(req,res){
             }
             },attributes:['id','name','nickname','sername','avatar']
         })
-        res.json(r)
+        const r1=await Chats.findAll({where:{
+            name:{
+                [Op.regexp]: ''+text+''
+            }
+            },attributes:['id','name','avatar','type']
+        })
+        res.json([...r,...r1])
     } catch (error) {
         res.status(404).json(error.name)
     }

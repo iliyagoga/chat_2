@@ -58,3 +58,9 @@ export  async function sendInfo(token,name,sername,tel,nick,date,file,setUrl){
 
  
 }
+export async function axiosOb(way,body){
+    return await axios.post(way,body,{headers:{
+        Authorization: 'Bearer '+store.getToken(), 
+        "Content-Type": "multipart/form-data"}
+    })
+}

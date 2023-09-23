@@ -1,5 +1,5 @@
 const sequelize =require('../dbConfiguration')
-const {DataTypes} =require('sequelize')
+const {DataTypes, BIGINT} =require('sequelize')
 const Roles =sequelize.define('Roles',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
     role: {type: DataTypes.STRING}
@@ -17,13 +17,16 @@ const Users=sequelize.define('Users',{
 })
 const Chats=sequelize.define('Chats',{
     id: {type: DataTypes.STRING, primaryKey: true, unique:true},
-    name: {type: DataTypes.STRING},
+    name: {type: DataTypes.STRING,unique:true},
     avatar: {type: DataTypes.STRING},
     info:{type:DataTypes.STRING},
-    moot:{type: DataTypes.BOOLEAN}
+    moot:{type: DataTypes.BOOLEAN},
+    type:{type:DataTypes.STRING,allowNull:false},
+    vision:{type:DataTypes.BOOLEAN,allowNull:false}
 })
 const Local=sequelize.define('Local',{
     id: {type: DataTypes.STRING, primaryKey: true, unique:true},
+    type:{type:DataTypes.STRING,allowNull:false}
 })
 const Subscribers=sequelize.define('Subscribers',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
@@ -40,7 +43,8 @@ const Recipients=sequelize.define('Recipients',{
 })
 const Files=sequelize.define('Files',{
     id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
-    file:{type: DataTypes.STRING}
+    file:{type: DataTypes.STRING},
+    type:{type: DataTypes.BIGINT}
 })
 const Messages=sequelize.define('Messages',{
     id: {type: DataTypes.STRING,unique:true, primaryKey: true},

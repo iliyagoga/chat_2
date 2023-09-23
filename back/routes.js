@@ -22,7 +22,11 @@ const routes={
         createLocalMessage: '/createLocalMessage',
         getLocalMessage: '/getLocalMessage',
         createRecipientMessageLocal:'/createRecipientMessageLocal',
-        getLastMessageLocal: '/getLastMessageLocal'
+        getLastMessageLocal: '/getLastMessageLocal',
+        deleteMessage:'/deleteMessage',
+        createChat:'/createChat',
+        checkSubscribe:'/checkSubscribe',
+        getChatMessages:'/getChatMessages'
         
     }
     

@@ -53,8 +53,14 @@ async function reg(req,res){
 }
 async function check(req,res){
     const {token}=req.body
-    const c=jwt.verify(token,process.env.SECRET_KEY)
-    res.json(c)
+    try {
+        const c=jwt.verify(token,process.env.SECRET_KEY)
+        res.json(true)
+    } catch (error) {
+        res.json(false)
+    }
+    
+    
 
 }
 

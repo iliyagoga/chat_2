@@ -7,7 +7,7 @@ export default function MessageStroke({v}){
     const nav=useNavigate()
     return <div className='message_stroke' onClick={()=>{
         store.setJoinRoom(v.room)
-        nav(routes.conversation2+v.nickname)
+        nav(routes.conversationLocal2+v.nickname)
         store.setAPerson(v.nickname)
         store.setAId(v.id)
 

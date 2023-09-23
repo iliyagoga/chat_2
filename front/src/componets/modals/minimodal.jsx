@@ -7,8 +7,5 @@ const nav=useNavigate()
         <div onClick={()=>{nav(routes.profile)}}>
             Профиль
         </div>
-        <div>
-            222
-        </div>
     </div>
 }
