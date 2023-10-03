@@ -30,7 +30,7 @@ const Router=observer(()=>{
                 localStorage.removeItem('token')
                 nav('/login')
             }
-        })}
+        }).catch(err=>{console.log('Сервер не отвечает(Для консоли)')})}
     },[])
     
     return <Routes>

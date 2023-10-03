@@ -1,5 +1,5 @@
 export const routes={
-backHost:'http://localhost:5000',
+backHost:'http://192.168.1.117:5000',
 messages: '/messages',
 conversationLocal: '/conversation/local/:id',
 conversationChat: '/conversation/chat/:id',
@@ -18,6 +18,8 @@ getLastMessageLocal:'/getLastMessageLocal',
 deleteMesage: '/deleteMessage',
 createChat:'/createChat',
 checkSubscribe:'/checkSubscribe',
-getChatMessages:'/getChatMessages'
+getChatMessages:'/getChatMessages',
+getAllMembers:'/getAllMembers',
+setVision:'/setVision'
 
 }

@@ -11,6 +11,7 @@ import store from '../store/store'
 import {observer} from 'mobx-react-lite'
 import { checkType } from '../utils/functions'
 import { sendInfo } from '../utils/functions'
+import Alert from '../componets/alert'
 const Profile=observer(()=>{
     const token=jwt(store.getToken())
     const nav=useNavigate()
@@ -21,8 +22,18 @@ const Profile=observer(()=>{
     const [date,setDate]=useState(token.date||null)
     const [url,setUrl]=useState((token.avatar&&(token.avatar!=undefined))?config.backHost+token.avatar:ava)
     const [file,setFile]=useState()
+    const [err,setErr]=useState(false)
+    const [u,setU]=useState(false)
 
+    function onHide(){
+        setErr(false)
+    }
+    function onHide2(){
+        setU(false)
+    }
     return <div className="container_p">
+        {err && <Alert text={'В данный момент это невозможно, попробуйте позже'} onHide={onHide}></Alert>}
+        {u && <Alert text={'Успешно'} onHide={onHide2}></Alert>}
         <div className="header_p">
             <img src={home} alt="" onClick={()=>{nav(routes.messages)}}/>
         </div>
@@ -76,7 +87,14 @@ const Profile=observer(()=>{
                 </div>
             </div>
             
-            <a onClick={()=>{sendInfo(token, name, sername, tel, nick, date, file, setUrl)}}>Сохранить</a>
+            <a onClick={()=>{sendInfo(token, name, sername, tel, nick, date, file, setUrl).then(r=>{
+                if(!r){
+                    setErr(true)
+                }
+                else{
+                    setU(true)
+                }
+                })}}>Сохранить</a>
         </div>
     </div>
 })

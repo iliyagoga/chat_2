@@ -14,6 +14,10 @@ class Store{
     _chatId=null
     _chatInfo=null
     _checkSubscribe=false
+    _members=[]
+    _files=[]
+    _writeActive=[]
+    _reload=false
     constructor(){
         makeAutoObservable(this)
     }
@@ -122,6 +126,38 @@ class Store{
 
     setCheckSubscribe(m){
         this._checkSubscribe=m
+    }
+
+    getMembers(){
+        return this._members
+    }
+
+    setMembers(m){
+        this._members=m
+    }
+
+    getFiles(){
+        return this._files
+    }
+
+    setFiles(m){
+        this._files=m
+    }
+
+    getWriteActive(){
+        return this._writeActive
+    }
+
+    setWriteActive(m){
+        this._writeActive=m
+    }
+
+    getReload(){
+        return this._reload
+    }
+
+    setReload(m){
+        this._reload=m
     }
 }
 export default new Store()

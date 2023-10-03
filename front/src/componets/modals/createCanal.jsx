@@ -2,12 +2,14 @@ import { observer } from "mobx-react-lite";
 import rem from '../../assets/rem.png'
 import ava from '../../assets/def_ava.png'
 import { useState } from "react";
-import axios from 'axios'
 import jwtDecode from "jwt-decode";
 import {config} from '../../utils/config'
 import { routes } from "../../utils/routes";
 import store from "../../store/store";
-const CreateCanal=observer(({onHide})=>{
+import { axiosOb } from "../../utils/functions";
+import { onHide } from "../../utils/functionsChat/hides";
+import Alert from '../alert'
+const CreateCanal=observer(()=>{
     const [c1,setC1]=useState(false)
     const [c2,setC2]=useState(false)
     const [name,setName]=useState('')
@@ -16,6 +18,14 @@ const CreateCanal=observer(({onHide})=>{
     const id= jwtDecode(store.getToken()).id
     const [url,setUrl]=useState(null)
     const [vi,setVi]=useState(true)
+    const [err,setErr]=useState(false)
+    function onHide(){
+        store.setCanal(false)
+    }
+    function onHide2(){
+        setErr(true)
+        onHide()
+    }
     if(!c2 && c1){
         onHide()
     }
@@ -25,14 +35,22 @@ const CreateCanal=observer(({onHide})=>{
             type=file.name.split('.')
             type=type[type.length-1]
         }
-        const result =await axios.post(config.backHost+routes.chat+routes.createChat,{name:name,info:info,file:file,type:type,id,vision}, {headers:{
-            Authorization: 'Bearer '+store.getToken(), 
-            "Content-Type": "multipart/form-data"}
-        })
+        try {
+            setErr(false)
+            await axiosOb(config.backHost+routes.chat+routes.createChat,{name:name,info:info,file:file,type:type,id,vision})
+            onHide()
+        } catch (error) {
+            console.log(error)
+            if(error.code=='ERR_NETWORK'){
+                setErr(true)
+            }
+        }
+        
 
-        onHide()
+        
     }
     return <div className="canal_modal" onClick={()=>{setC1(!c1)}}> 
+    {err && <Alert text={'В данный момент это невозможно'} onHide={onHide2}></Alert>}
                 <div className="container_c" onClick={()=>{setC2(!c2)}}>
                 <img className="remove"src={rem} onClick={()=>{onHide();setC1(false);setC2(false)}} alt="" />
                     <div  className='ava' style={{position:'relative'}}>

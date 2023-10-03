@@ -2,10 +2,10 @@ const {Chats, Subscribers, Users,Local, Messages,Senders, Files, Roles}=require(
 const {Op, Sequelize} =require('sequelize')
 const uuid=require('uuid')
 const fs =require('fs')
+const { one, two } = require('../utils/getLocalCHatFuncs')
 async function checkOrCreateLocal(req,res){
     const {id1,id2,room}=req.body
     const id=uuid.v4()
-    console.log(id1,id2)
     if(id1 &&id2 &&id1!=undefined && id2!=undefined){
     try {
         const result=await Subscribers.findAll({
@@ -59,7 +59,7 @@ try {
 async function getMessageLocal(req,res){
     const {LocalId}=req.body
     try {
-        const r=await Messages.findAll({where:{LocalId:LocalId},include:[{model: Senders},{model: Files}]})
+        const r=await Messages.findAll({where:{LocalId:LocalId},include:[{model: Senders},{model: Files}],order:[['createdAt','ASC']]})
         res.json(r)
 
     } catch (error) {
@@ -68,45 +68,20 @@ async function getMessageLocal(req,res){
     }
 }
 async function getLocalsChats(req,res){
-    const {sender}=req.body
-    try {
-        const r1=await Subscribers.findAll({where: {subscriber:sender}})
-        
-        if(r1.length!=0){
-            const idsLocals=r1.map(v=>{return v.LocalId})
-            const r2=await Subscribers.findAll({where: {subscriber:{[Op.not]:sender},LocalId:[...idsLocals]}})
-            let arr=[]
-            const check =await Messages.findOne({where:{LocalId:idsLocals[0]}})
-            if(check){
-                arr= r2.map(async v=>{
-                    const r = await Messages.findOne(
-                        {
-                            where: {
-                                LocalId: v.LocalId
-                            },
-                            order: [['createdAt', 'DESC']]
-                        }
-                     
-                    )
-                        if(r){
-                            const av=await Users.findOne({where:{id:Number(v.subscriber)}})
-                            return {room: r.LocalId,nickname:av.nickname,avatar:av.avatar,message:r.message,id: v.subscriber}
-                        }
-                })
-                const result= await Promise.all(arr)
-                res.json(result)
-            }
-            else{
-                res.json([])
-            }
-        }
-        else{
-            res.json([])
-        }
-    } catch (error) {
-        console.log(error)
-        
+   const r1= await one(req)
+   const r2= await two(req)
+   const r3=[...r1,...r2].sort(function (a, b) {
+    if (a.name > b.name) {
+      return 1;
     }
+    if (a.name < b.name) {
+      return -1;
+    }
+
+    return 0;
+  })
+   res.json(r3)
+
 }
 async function createChat(req,res){
     try {
@@ -159,32 +134,42 @@ async function checkSubscribe(req,res){
     }
 }
 async function getChatMessages(req,res){
-    const {chatid,userid}=req.body
-    async function rrr(){
-        try {
-            const result =await Messages.findAll({where:{ChatId:chatid},include:[{model:Senders}]})
-            res.json(result)
-        } catch (error) {
-            res.status(404).json(error)
-        }
-    }
+    const {chatid}=req.body
     try {
-        const r1=await Chats.findOne({where: {id:chatid,vision:false}})
-            if(r1){
-                const r2 =await Subscribers.findOne({where:{ChatId:chatid,subscriber:userid}})
-                if(r2){
-                    rrr()
-                }
-                else{
-                    res.status(401).json('Невозможно получить информацию')
-                }
-            }
-            else{
-                rrr()
-            }
+        const result =await Messages.findAll({where:{ChatId:chatid},include:[{model:Senders},{model: Files}],order:[['createdAt','ASC']]})
+        res.json(result)
     } catch (error) {
         res.status(404).json(error)
     }
 }
+async function getAllMembers(req,res){
+    const {chatid}=req.body
+    try {
+        const r1=await Subscribers.findAll({where:{ChatId:chatid},attributes:['subscriber'],raw: true})
+        const r11=r1.map(v=>{return v.subscriber})
+        const result =await Users.findAll({where:{id:r11},attributes:['id','name','sername','date','nickname','avatar','phone'],include:[{model:Roles}]})
+        res.json(result)
+        
+    } catch (error) {
+        res.status(404).json(error)
+    }
+}
+async function setVision(req,res){
 
-module.exports={checkOrCreateLocal,getChats,getMessageLocal,getLocalsChats,createChat,checkSubscribe,getChatMessages}
+    const {chatid,value,check}=req.body
+
+    try {  
+        if(check=='admin'){
+            const r1=await Chats.update({vision:value},{where:{id:chatid}})
+            res.json( true)
+        }
+        else{
+            res.status(404).json(false)
+        }
+       
+    } catch (error) {
+        res.status(404).json(false)
+    }
+}
+
+module.exports={checkOrCreateLocal,getChats,getMessageLocal,getLocalsChats,createChat,checkSubscribe,getChatMessages,getAllMembers,setVision}

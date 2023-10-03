@@ -1,0 +1,85 @@
+.m_right
+    display: flex
+    margin-left: auto
+    width: max-content
+    margin-bottom: .625rem
+    align-items: center
+    font-family: sans-serif
+    .message
+        word-wrap: break-word
+        background: white
+        padding: .5rem .7rem
+        width: 20rem
+        border-radius: 20px 2px 2px 20px
+        font-size: 1.2rem
+        cursor: pointer
+        &:hover
+            cursor: pointer
+            background: #dbdbdb
+        @include media("sml")
+            width: 15rem
+            font-size: 1.2rem
+        h2
+            margin: 0
+            text-align: right
+        p
+            margin: 0
+        
+    .avatar
+        width: 4rem
+        height: 4rem
+        border-radius: 100%
+        background: white
+        display: flex
+        justify-content: center
+        align-items: center
+        margin-left: .5rem
+        &:hover
+            cursor: pointer
+            background: #dbdbdb
+        img
+            width: 70%
+            height: 70%
+            object-fit: cover
+.m_left
+    display: flex
+    margin-right: auto
+    width: max-content
+    margin-bottom: .625rem
+    align-items: center
+    font-family: sans-serif
+    .message
+        word-wrap: break-word
+        background: white
+        padding: .5rem .7rem
+        width: 20rem
+        border-radius: 2px 20px 20px 2px
+        font-size: 1.2rem
+        cursor: pointer
+        &:hover
+            cursor: pointer
+            background: #dbdbdb
+        @include media("sml")
+            width: 15rem
+            font-size: 1.2rem
+        h2
+            margin: 0
+            text-align: left
+        p
+            margin: 0
+    .avatar
+        width: 4rem
+        height: 4rem
+        border-radius: 100%
+        background: white
+        display: flex
+        justify-content: center
+        align-items: center
+        margin-right: .5rem
+        &:hover
+            cursor: pointer
+            background: #dbdbdb
+        img
+            width: 70%
+            height: 70%
+            object-fit: cover

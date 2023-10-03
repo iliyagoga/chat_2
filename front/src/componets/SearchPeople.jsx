@@ -11,11 +11,14 @@ const SearchPeople = observer(({v})=>{
             nav(routes.conversationLocal2+v.nickname)
             store.setAPerson(v.nickname)
             store.setAId(v.id)
+            localStorage.setItem('APerson',v.nickname)
+            localStorage.setItem('Aid',v.id)
         }
         else{
             if(v.type=='chat'){
                 nav(routes.conversationChat2+v.name)
                 store.setChatId(v.id)
+                localStorage.setItem('chatid',v.id)
             }
         }
            

@@ -26,7 +26,9 @@ const routes={
         deleteMessage:'/deleteMessage',
         createChat:'/createChat',
         checkSubscribe:'/checkSubscribe',
-        getChatMessages:'/getChatMessages'
+        getChatMessages:'/getChatMessages',
+        getAllMembers:'/getAllMembers',
+        setVision:'/setVision'
         
     }
     

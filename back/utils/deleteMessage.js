@@ -19,7 +19,7 @@ async function deleteMessage(msgid,io,room, index){
         }})
         if(get)
         fs.unlink(__dirname+'/../static/'+get.file,(r)=>{console.log(r)})
-    io.in(room).emit('@deleteMServer',{a:1,index:index})
+        io.in(room).emit('@deleteMServer',{a:1,index:index})
     } catch (error) {
         io.in(room).emit('@deleteMServer',{a:0,error})
         console.log(error)

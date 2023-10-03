@@ -115,6 +115,7 @@ html {
   justify-content: center;
   align-items: center;
   color: white;
+  height: 5rem;
   padding: 0.2rem 2rem;
 }
 .header_con .mess {
@@ -161,7 +162,7 @@ html {
 .body .b {
   overflow-y: scroll;
   width: 100%;
-  height: 82vh;
+  height: 85.5vh;
 }
 .body .b::-webkit-scrollbar {
   width: 0;
@@ -257,9 +258,10 @@ html {
   font-family: sans-serif;
   color: #777777;
   position: absolute;
-  top: 7rem;
+  bottom: 5rem;
   left: 1rem;
   text-align: center;
+  z-index: 400;
 }
 
 .html {
@@ -314,6 +316,12 @@ html {
 }
 .container .login a:hover {
   background: #e6e6e6;
+}
+.container .login h3 {
+  color: grey;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 3rem;
 }
 
 .container_p {
@@ -551,7 +559,11 @@ html {
   justify-content: center;
   align-items: center;
   color: white;
+  height: 5rem;
   padding: 0.2rem 2rem;
+}
+.header_chat .info_block {
+  cursor: pointer;
 }
 .header_chat .sub1 {
   background: white;
@@ -569,4 +581,426 @@ html {
   font-family: sans-serif;
   font-size: 1.2rem;
   cursor: pointer;
+}
+.header_chat .mess {
+  font-family: sans-serif;
+  font-size: 1.2rem;
+  color: black;
+  margin-right: auto;
+  background: #A0A7E9;
+  padding: 0.5rem 0.7rem;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.m_right {
+  display: flex;
+  margin-left: auto;
+  width: -moz-max-content;
+  width: max-content;
+  margin-bottom: 0.625rem;
+  align-items: center;
+  font-family: sans-serif;
+}
+.m_right .message {
+  word-wrap: break-word;
+  background: white;
+  padding: 0.5rem 0.7rem;
+  width: 20rem;
+  border-radius: 20px 2px 2px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.m_right .message:hover {
+  cursor: pointer;
+  background: #dbdbdb;
+}
+@media only screen and (max-width: 768px) {
+  .m_right .message {
+    width: 15rem;
+    font-size: 1.2rem;
+  }
+}
+.m_right .message h2 {
+  margin: 0;
+  text-align: right;
+}
+.m_right .message p {
+  margin: 0;
+}
+.m_right .avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+.m_right .avatar:hover {
+  cursor: pointer;
+  background: #dbdbdb;
+}
+.m_right .avatar img {
+  width: 70%;
+  height: 70%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.m_left {
+  display: flex;
+  margin-right: auto;
+  width: -moz-max-content;
+  width: max-content;
+  margin-bottom: 0.625rem;
+  align-items: center;
+  font-family: sans-serif;
+}
+.m_left .message {
+  word-wrap: break-word;
+  background: white;
+  padding: 0.5rem 0.7rem;
+  width: 20rem;
+  border-radius: 2px 20px 20px 2px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.m_left .message:hover {
+  cursor: pointer;
+  background: #dbdbdb;
+}
+@media only screen and (max-width: 768px) {
+  .m_left .message {
+    width: 15rem;
+    font-size: 1.2rem;
+  }
+}
+.m_left .message h2 {
+  margin: 0;
+  text-align: left;
+}
+.m_left .message p {
+  margin: 0;
+}
+.m_left .avatar {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 100%;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.5rem;
+}
+.m_left .avatar:hover {
+  cursor: pointer;
+  background: #dbdbdb;
+}
+.m_left .avatar img {
+  width: 70%;
+  height: 70%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.member_modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  background: rgba(87, 87, 87, 0.4862745098);
+  z-index: 1000;
+}
+.member_modal .m_modal {
+  background: #C4CAFB;
+  border-radius: 20px;
+  padding: 2.875rem 3.4375rem;
+  position: relative;
+  top: 15rem;
+  width: 30%;
+  height: 50%;
+  z-index: 1000;
+}
+@media only screen and (max-width: 768px) {
+  .member_modal .m_modal {
+    width: 70%;
+  }
+}
+.member_modal .m_modal .remove {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+}
+.member_modal .m_modal .prevue {
+  display: flex;
+  width: 100%;
+  height: 30%;
+}
+.member_modal .m_modal .prevue img {
+  width: 10rem;
+  cursor: pointer;
+}
+.member_modal .m_modal .prevue div {
+  font-family: sans-serif;
+  margin-left: 1rem;
+  margin-top: 2rem;
+}
+.member_modal .m_modal .prevue div p {
+  font-size: 1.5rem;
+}
+.member_modal .m_modal .m_body div {
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: flex;
+  color: #DADADA;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.member_modal .m_modal .m_body div img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: -moz-max-content;
+  height: max-content;
+  width: 2rem;
+}
+.member_modal .m_modal .m_body div h2 {
+  margin-left: 1rem;
+}
+
+.member_list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  background: rgba(87, 87, 87, 0.4862745098);
+  z-index: 1000;
+}
+.member_list .m_list {
+  background: #C4CAFB;
+  border-radius: 20px;
+  position: relative;
+  top: 3rem;
+  width: 30%;
+  height: 90%;
+}
+@media only screen and (min-width: 769px) and (max-width: 1224px) {
+  .member_list .m_list {
+    width: 70%;
+    height: 80%;
+    top: 5rem;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .member_list .m_list {
+    width: 90%;
+    height: 95%;
+  }
+}
+.member_list .m_list .m_header {
+  height: 3.2rem;
+  padding: 2rem 2rem 0 2rem;
+  border-radius: 20px 20px 0 0;
+  background: white;
+}
+.member_list .m_list .m_header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: sans-serif;
+}
+.member_list .m_list .m_header .remove {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+}
+.member_list .m_list .chat {
+  display: flex;
+  width: 100%;
+  height: 30%;
+  align-items: center;
+  background: white;
+  margin-top: 0.5rem;
+}
+.member_list .m_list .chat img {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  cursor: pointer;
+}
+.member_list .m_list .chat h2 {
+  font-size: 1.5rem;
+  word-wrap: break-word;
+}
+.member_list .m_list .files, .member_list .m_list .people, .member_list .m_list .button, .member_list .m_list .info {
+  width: 100%;
+  margin-top: 1rem;
+  background: white;
+}
+.member_list .m_list .files div, .member_list .m_list .people div, .member_list .m_list .button div, .member_list .m_list .info div {
+  display: flex;
+  background: white;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 1rem;
+  align-items: center;
+  font-family: sans-serif;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.member_list .m_list .files div p, .member_list .m_list .people div p, .member_list .m_list .button div p, .member_list .m_list .info div p {
+  margin: 0 0 0 0.5rem;
+  width: 100%;
+  word-break: break-all;
+}
+.member_list .m_list .files div:hover, .member_list .m_list .people div:hover, .member_list .m_list .button div:hover, .member_list .m_list .info div:hover {
+  background: #ebebeb;
+}
+.member_list .m_list .button {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.member_list .m_list .button a {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  background: #DADADA;
+  cursor: pointer;
+}
+.member_list .m_list .info div {
+  width: 100%;
+}
+.member_list .m_list .info div p {
+  word-break: break-all;
+}
+.member_list .m_list .info textarea {
+  width: 90%;
+  position: absolute;
+  margin-left: 0.5rem;
+  height: 15rem;
+  outline: none;
+  border-radius: 10px;
+  padding: 0.5rem;
+  border: 1px solid #C2C2C2;
+}
+.member_list .m_list .def_button {
+  display: block;
+  font-family: sans-serif;
+  margin: 1rem auto;
+  padding: 0.7rem 1rem;
+  font-size: 1.2rem;
+  background: white;
+  border-radius: 30px;
+  width: -moz-max-content;
+  width: max-content;
+  cursor: pointer;
+}
+.member_list .m_list .def_button:hover {
+  background: #ebebeb;
+}
+
+.ms_modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  background: rgba(87, 87, 87, 0.4862745098);
+  z-index: 1000;
+}
+.ms_modal .msm_body {
+  background: #C4CAFB;
+  border-radius: 20px;
+  padding: 2.875rem 3.4375rem;
+  position: relative;
+  top: 5rem;
+  width: 30%;
+  overflow: hidden;
+  height: 80%;
+  z-index: 500;
+}
+@media only screen and (max-width: 768px) {
+  .ms_modal .msm_body {
+    width: 70%;
+  }
+}
+.ms_modal .msm_body .remove {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+}
+.ms_modal .msm_body .ms_body {
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.ms_modal .msm_body .ms_body .member {
+  width: 90%;
+  height: 5rem;
+  background: white;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  margin-top: 0.5rem;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+}
+.ms_modal .msm_body .ms_body .member img {
+  -o-object-fit: contain;
+     object-fit: contain;
+  height: 100%;
+  width: -moz-max-content;
+  width: max-content;
+  border-radius: 100%;
+}
+.ms_modal .msm_body .ms_body .member p {
+  margin-left: 1rem;
+  font-family: sans-serif;
+  width: 70%;
+  word-break: break-all;
+}
+.ms_modal .msm_body .ms_body .member h3 {
+  font-weight: 500;
+  font-size: 1rem;
+  color: #DADADA;
+  margin-left: auto;
+  font-family: sans-serif;
+}
+.ms_modal .msm_body .ms_body .member:hover {
+  background: #ebebeb;
+}
+
+.alert {
+  z-index: 1000;
+  background: white;
+  border-radius: 10px;
+  position: absolute;
+  top: 3rem;
+  box-shadow: 1px 1px 10px 1px #bdbdbd;
+  padding: 1rem 2rem;
+}
+.alert .remove {
+  position: absolute;
+  right: 1rem;
+  cursor: pointer;
+}
+.alert h2 {
+  margin-top: 3rem;
 }
