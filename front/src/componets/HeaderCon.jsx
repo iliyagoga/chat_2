@@ -1,9 +1,11 @@
-import AutorInfoBlock from "./AutInfoBlock"
+
 import store from "../store/store"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import jwtDecode from "jwt-decode"
 import { useNavigate } from "react-router-dom"
 import PersonModal from './modals/personModal'
+import P_Block from "./P_Block"
+import { getPersonInfo } from "../utils/functionLocal/getPersonInfo"
 export default function HeaderCon(){
     const [status,Setstatus]=useState(false)
     const nav=useNavigate()
@@ -38,12 +40,12 @@ export default function HeaderCon(){
                 
         })
     }
-    
+    useEffect(()=>{getPersonInfo()},[])
     const var1=<div className="header_con">
         {show&&<PersonModal onHide={onHide}></PersonModal>}
         <p className="mess" onClick={()=>{nav('/messages')}}>cообщения</p>
-        <div onClick={()=>setShow(true)}>
-            <AutorInfoBlock></AutorInfoBlock>
+        <div onClick={()=>{setShow(true)}}>
+            <P_Block></P_Block>
         </div>
        {status&&<p>Онлайн</p>}
     </div>

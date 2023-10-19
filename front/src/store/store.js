@@ -159,5 +159,7 @@ class Store{
     setReload(m){
         this._reload=m
     }
+
+
 }
 export default new Store()

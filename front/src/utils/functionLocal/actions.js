@@ -4,7 +4,7 @@ import storeLocal from "../../store/storeLocal"
 
 export function actions(){
     const socket=store.getSocket()
-    const myid=jwtDecode(store.getToken()).id
+    const myid=jwtDecode(localStorage.getItem('token')).id
 
     socket.on('@setAction',(r)=>{
         if(r.id!=myid)

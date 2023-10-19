@@ -1,6 +1,7 @@
 const fs=require('fs')
 const uuid=require('uuid');
 const { createMessageLocal } = require('../../../utils/createMessage');
+const { createFile } = require('../../../utils/createFile');
 
 function sendClient(socket,io,r){
     socket.on('@sendClient',(req)=>{
@@ -17,7 +18,7 @@ function sendClient(socket,io,r){
             })
         if(req.files){
             title=uuid.v4()+'.'+req.type[req.type.length-1]
-            fs.writeFileSync(__dirname+'/static/'+title,req.files)
+            fs.writeFileSync(__dirname+'/../../../static/'+title,req.files)
             const re=createFile(title,messID,req.size)
             if(!re){
                 title=null

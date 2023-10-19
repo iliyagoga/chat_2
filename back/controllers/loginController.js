@@ -47,7 +47,7 @@ async function reg(req,res){
         res.json(jwt.sign(def,process.env.SECRET_KEY,{expiresIn:'24h'}))
     }
     else{
-        res.status(404).json('Такой пользователь существует')
+        res.status(404).json('Такой пользователь не существует')
     }
     
 }

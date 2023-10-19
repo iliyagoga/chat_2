@@ -62,7 +62,7 @@ const CreateCanal=observer(()=>{
                     </div>
                     <input onChange={(e)=>{setName(e.target.value)}} value={name}className="input" type="text" placeholder="Название канала"/>
                     <textarea onChange={(e)=>{setInfo(e.target.value)}} value={info} name="" id="" cols="30" rows="10" placeholder="Описание канала"></textarea>
-                    <select value={vi} onChange={(e)=>{setVi(e.target.value)}}name="" id="">
+                    <select className="type" value={vi} onChange={(e)=>{setVi(e.target.value)}}name="" id="">
                         <option value="true">Общий</option>
                         <option value="false">Приватный</option>
                     </select>

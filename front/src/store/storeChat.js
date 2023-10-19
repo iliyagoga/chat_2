@@ -17,6 +17,8 @@ class StoreChat {
     _b=null
     _loaded=false
     _EmitMessage=false
+    _ban=false
+    _reload=false
     constructor(){
         makeAutoObservable(this)
     }
@@ -138,6 +140,20 @@ class StoreChat {
     }
     getEmitMessage(){
         return this._EmitMessage
+    }
+
+    setBan(m){
+        this._ban=m
+    }
+    getBan(){
+        return this._ban
+    }
+
+    setReload(m){
+        this._reload=m
+    }
+    getReload(){
+        return this._reload
     }
 }
 export default new StoreChat()

@@ -5,12 +5,13 @@ import cal from '../../assets/cal.png'
 import {config} from '../../utils/config'
 import rem from '../../assets/rem.png'
 import { useState } from "react";
-import jwtDecode from "jwt-decode";
+import storeLocal from "../../store/storeLocal";
 
 const PersonModal =observer(({onHide})=>{
     const [c1,setC1]=useState(false)
     const [c2,setC2]=useState(true)
-    const {avatar,name,sername,nickname,date,phone}=jwtDecode(localStorage.getItem('token'))
+    const {avatar,name,sername,nickname,date,phone}=storeLocal.getPerson()
+
     if(c2&&c1){
         onHide()
     }

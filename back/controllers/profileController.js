@@ -72,7 +72,13 @@ async function setInfo(req,res){
                 res.status(402).json('Пользователь с таким псевдонимом уже существует')
             }
             else{
+               if(error.parent.code=='22P02'){
+                res.status(401).json('Неверный формат номера телефона, введите только цифры')
+               }
+               else{
                 res.status(404).json(error)
+               }
+               
             }
             
         } 

@@ -34,7 +34,11 @@ export default function SearchModal({onHide}){
             <img className="remove"src={rem} alt="" onClick={()=>{onHide();setC1(false);setC2(false)}}/>
             <div className="search_container">
                 <div>
-                    <input value={s} onChange={(e)=>{setSearch(e.target.value)}} type="search" placeholder='Поиск'/>
+                    <input value={s} onChange={(e)=>{setSearch(e.target.value)}} onKeyDown={(e)=>{
+                        if(e.code=='Enter'){
+                            serch()
+                        }
+                    }}type="search" placeholder='Поиск'/>
                     <img src={search} onClick={serch} alt="" />
                 </div>
             </div>

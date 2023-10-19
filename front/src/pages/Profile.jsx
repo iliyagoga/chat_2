@@ -24,6 +24,7 @@ const Profile=observer(()=>{
     const [file,setFile]=useState()
     const [err,setErr]=useState(false)
     const [u,setU]=useState(false)
+    const [textErr,setTextErr]=useState('')
 
     function onHide(){
         setErr(false)
@@ -32,7 +33,7 @@ const Profile=observer(()=>{
         setU(false)
     }
     return <div className="container_p">
-        {err && <Alert text={'В данный момент это невозможно, попробуйте позже'} onHide={onHide}></Alert>}
+        {err && <Alert text={textErr} onHide={onHide}></Alert>}
         {u && <Alert text={'Успешно'} onHide={onHide2}></Alert>}
         <div className="header_p">
             <img src={home} alt="" onClick={()=>{nav(routes.messages)}}/>
@@ -87,14 +88,17 @@ const Profile=observer(()=>{
                 </div>
             </div>
             
-            <a onClick={()=>{sendInfo(token, name, sername, tel, nick, date, file, setUrl).then(r=>{
-                if(!r){
-                    setErr(true)
-                }
-                else{
-                    setU(true)
-                }
-                })}}>Сохранить</a>
+            <a onClick={()=>{
+                sendInfo(token, name, sername, tel, nick, date, file, setUrl).then(r=>{setU(true)}).catch(err=>{
+                    setErr(true);
+                    if(err.code=='ERR_NETWORK'){
+                        setTextErr('В данный момент это невозможно')
+                    }
+                    else{
+                        setTextErr(err.response.data)
+                    }
+                    })
+                }}>Сохранить</a>
         </div>
     </div>
 })

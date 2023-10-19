@@ -3,7 +3,12 @@ const { Subscribers, Chats, Roles } = require("../models/model")
 async function setSubscribe(chatid,userid,io){
     try {
         const r1=await Subscribers.create({ChatId:chatid,subscriber:userid,mode:true})
-        const r2=await Roles.create({ChatId:chatid,UserId:userid,role:'subscriber'})
+        const r3=await Roles.findOne({where: {ChatId:chatid,UserId:userid}})
+            if(!r3){
+                const r2=await Roles.create({ChatId:chatid,UserId:userid,role:'subscriber'})
+            }
+        
+   
         io.in(chatid).emit('@serverSetSubscribe',{message:r1})
     } catch (error) {
         io.in(chatid).emit('@serverSetSubscribe',{message:error}) 

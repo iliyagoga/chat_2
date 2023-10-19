@@ -3,8 +3,8 @@ import { routes } from "./routes"
 import store from '../store/store'
 import jwt from "jwt-decode"
 import axios from "axios"
-import { config } from "./config"
 import jwtDecode from "jwt-decode"
+import { api } from "./API";
 export const  l=(nav)=>{
     localStorage.removeItem('token')
     store.setToken('')
@@ -29,7 +29,7 @@ export function checkType(file){
 }
 export  async function sendInfo(token,name,sername,tel,nick,date,file,setUrl){
     try {
-        const r=await axiosOb(config.backHost+config.apiSetInfo,
+        const r=await axiosOb(api.backHost+api.profile.way+api.profile.setInfo,
             {
                 id:token.id,
                 name,
@@ -43,43 +43,37 @@ export  async function sendInfo(token,name,sername,tel,nick,date,file,setUrl){
         localStorage.setItem('token',r.data.token)
         store.setToken(r.data)
         if(jwt(r.data.token).avatar!=undefined)
-            setUrl(config.backHost+jwt(r.data.token).avatar)
+            setUrl(api.backHost+'/'+jwt(r.data.token).avatar)
         return true
     } catch (error) {
-       
-        if(error.code=='ERR_NETWORK'){
-            return false
-        }
-        else{
-            return false
-        }
-       
+        throw error
     }
-
- 
 }
-export async function axiosOb(way,body){
-    return await axios.post(way,body,{headers:{
-        Authorization: 'Bearer '+store.getToken(), 
-        "Content-Type": "multipart/form-data"}
+
+export async function axiosOb(way,body,hs={}){
+    const copy= {Authorization: 'Bearer '+store.getToken(), 
+    "Content-Type": "multipart/form-data",
+    ID:jwtDecode(localStorage.getItem('token')).id}
+    return await axios.post(way,body,{headers:{...copy,...hs}
     })
 }
-export async function setVision(value,chatid,check){
-    try {
-        return await axiosOb(config.backHost+routes.chat+routes.setVision,{value,chatid,check})
-    } catch (error) {
-        console.log(error)
-    }
-}
+
+
 
 export  function inicialSocket(){
-    const socket=io(config.backHost)
+    const socket=io(api.backHost,{
+        auth:{
+            token: localStorage.getItem('token'),
+            id: jwtDecode(localStorage.getItem('token')).id
+        }
+    })
+
     socket.connect()
     socket.emit('connection')
     socket.emit('@connect',{message:jwtDecode(store.getToken()).id})
     store.setSocket(socket)
     socket.on('connect_error',(e)=>{
-        console.log('Сервер недоступен')
+        console.log('Сервер недоступен',e)
     })
     socket.on('connect',()=>{
         console.log('Подключен')

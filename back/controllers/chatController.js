@@ -1,4 +1,4 @@
-const {Chats, Subscribers, Users,Local, Messages,Senders, Files, Roles}=require('../models/model')
+const {Chats, Subscribers, Users,Local, Messages,Senders, Files, Roles, Bans}=require('../models/model')
 const {Op, Sequelize} =require('sequelize')
 const uuid=require('uuid')
 const fs =require('fs')
@@ -7,34 +7,40 @@ async function checkOrCreateLocal(req,res){
     const {id1,id2,room}=req.body
     const id=uuid.v4()
     if(id1 &&id2 &&id1!=undefined && id2!=undefined){
-    try {
-        const result=await Subscribers.findAll({
-            where: {
-                subscriber:[id1,id2],
-                mode:false
-            },
-            attributes: ['LocalId'],
-            group: ['LocalId'],
-            having: Sequelize.literal('COUNT(*) > 1')
-            })
-
-        if(result.length==0){
-            const r1=await Local.create({id:room,type:'locale'})
-            const r2=await Subscribers.create({LocalId:room,subscriber:id1,mode:false})
-            const r3=await Subscribers.create({LocalId:room,subscriber:id2,mode:false})
-            res.json(r2)
+        if(id1!=id2){
+            try {
+                const result=await Subscribers.findAll({
+                    where: {
+                        subscriber:[id1,id2],
+                        mode:false
+                    },
+                    attributes: ['LocalId'],
+                    group: ['LocalId'],
+                    having: Sequelize.literal('COUNT(*) > 1')
+                    })
+        
+                if(result.length==0){
+                    const r1=await Local.create({id:room,type:'locale'})
+                    const r2=await Subscribers.create({LocalId:room,subscriber:id1,mode:false})
+                    const r3=await Subscribers.create({LocalId:room,subscriber:id2,mode:false})
+                    res.json(r2)
+                }
+                else{
+        
+                    res.json(result[0])
+                }
+        
+                
+                
+            } catch (error) {
+                res.status(404).json(error)
+                console.log(error)
+            }
         }
         else{
-
-            res.json(result[0])
+            res.status(404) 
         }
-
-        
-        
-    } catch (error) {
-        res.status(404).json(error)
-        console.log(error)
-    }
+    
     }else{
         res.status(404)
     }
@@ -86,7 +92,6 @@ async function getLocalsChats(req,res){
 async function createChat(req,res){
     try {
         const {name,info,type,id,vision}=req.body
-        console.log(name,info,type,id)
         let file
         if(req.files){
              file=req.files.file
@@ -147,29 +152,23 @@ async function getAllMembers(req,res){
     try {
         const r1=await Subscribers.findAll({where:{ChatId:chatid},attributes:['subscriber'],raw: true})
         const r11=r1.map(v=>{return v.subscriber})
-        const result =await Users.findAll({where:{id:r11},attributes:['id','name','sername','date','nickname','avatar','phone'],include:[{model:Roles}]})
+        const result =await Users.findAll({where:{id:r11},attributes:['id','name','sername','date','nickname','avatar','phone'],include:[{model:Roles},{model:Bans}]})
         res.json(result)
         
     } catch (error) {
         res.status(404).json(error)
     }
 }
-async function setVision(req,res){
 
-    const {chatid,value,check}=req.body
-
-    try {  
-        if(check=='admin'){
-            const r1=await Chats.update({vision:value},{where:{id:chatid}})
-            res.json( true)
-        }
-        else{
-            res.status(404).json(false)
-        }
-       
+async function getPerson(req,res){
+    const {pid} =req.body
+    try {
+        const result =await Users.findOne({where:{id:pid},attributes:['name','avatar','nickname','sername','date','phone']})
+        res.json(result)
     } catch (error) {
-        res.status(404).json(false)
+        console.log(error)
+        res.status(404).json(error)
     }
 }
 
-module.exports={checkOrCreateLocal,getChats,getMessageLocal,getLocalsChats,createChat,checkSubscribe,getChatMessages,getAllMembers,setVision}
+module.exports={checkOrCreateLocal,getChats,getMessageLocal,getLocalsChats,createChat,checkSubscribe,getChatMessages,getAllMembers,getPerson}

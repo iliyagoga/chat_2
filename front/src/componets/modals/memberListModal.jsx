@@ -9,12 +9,14 @@ import unvisible from '../../assets/unvisible.png'
 import infoo from '../../assets/info.png'
 import rem from '../../assets/rem.png'
 import store from '../../store/store'
-import {  sendInfo, setVision } from '../../utils/functions'
 import { observer } from 'mobx-react-lite'
 import jwtDecode from 'jwt-decode'
 import { config } from '../../utils/config'
 import { onHide2 } from '../../utils/functionsChat/hides'
 import storeChat from '../../store/storeChat'
+import Alert from '../alert'
+import { setVision } from '../../utils/functionsChat/setVision'
+import { useNavigate } from 'react-router-dom'
 const MemberList=observer(()=>{
     const info=store.getChatInfo()
     const setMf=storeChat.setMf
@@ -32,10 +34,25 @@ const MemberList=observer(()=>{
     const [inf,setInf]=useState(null)
     const [name,setName]=useState('')
     const [textarea,setTextarea]=useState('')
+    const [err,setErr]=useState(false)
+    
+    const nav=useNavigate()
     if(!c2 && c1){
         onHide2()
     }
+    function onHide(){
+        const {avatar,info,name,moot,vision}=store.getChatInfo()
+        store.setChatInfo({avatar,info,name,moot,vision})
+        setErr(false)
+        onHide2()
+    }
     const chatid=store.getChatId()
+
+    useEffect(()=>{
+        if(store.getChatInfo().error!=undefined)
+            setErr(true)
+    },[store.getChatInfo()])
+
     async function setInfo(chatid,userid,name,info,file,socket){
         if(file){
             const cop=file.name.split('.')
@@ -47,7 +64,9 @@ const MemberList=observer(()=>{
         }
      
     }
+  
     return <div className="member_list" onClick={()=>{setC1(!c1)}}>
+        {err && <Alert text={'Такое название чата уже существует'} onHide={onHide}></Alert>}
         <div className="m_list" onClick={()=>{setC2(!c2)}}>
             <div className='m_header'>
                 <h1>Информация</h1>
@@ -161,31 +180,13 @@ const MemberList=observer(()=>{
 
             { check=='admin'&& <div className='people'>
                 {store.getChatInfo().vision&&<div onClick={()=>{
-                    setVision(false,chatid,check).then(r=>{
-                        if(r!=undefined){
-                            if(r.data){
-                                let u=Object.assign(store.getChatInfo())
-                                u.vision=false
-                                store.setChatInfo(u)
-                            }
-                        }
-                    })
-
+                    setVision(false,chatid,check)
                 }}>
                     <img src={visible} alt="" />
                     <p>Общий</p>
                 </div>}
                 {!store.getChatInfo().vision&&<div onClick={()=>{
-                    setVision(true,chatid,check).then(r=>{
-                        if(r!=undefined){
-                            if(r.data){
-                                let u=Object.assign(store.getChatInfo())
-                                u.vision=true
-                                store.setChatInfo(u)
-                            }
-                        }
-                        
-                    })
+                    setVision(true,chatid,check)
                 }}>
                     <img src={unvisible} alt="" />
                     <p>Приватный</p>

@@ -20,40 +20,63 @@ import { createColor } from '../utils/functionsChat/createColor';
 import { getAllMembers } from '../utils/functionsChat/getAllMembers';
 import { getChatMessages } from '../utils/functionsChat/getMessages';
 import { clickMessage } from '../utils/functionsChat/clickMessage';
+import {getVision} from '../utils/functionsChat/getVision'
 import { checkWrite } from '../utils/functionsChat/clearWrite';
 import { redact } from '../utils/functionsChat/redact';
 import { setter } from '../utils/functionsChat/setter';
 import { memberModal } from '../utils/functionsChat/memberModal';
 import { joinChatOk } from '../utils/functionsChat/joinChatOk';
+import { sendServerChat } from '../utils/functionsChat/sendServerChat';
 const ChatConversation =observer(()=>{
     const input=useRef()
     const [write,setWrite]=useState(true)
     const b=useRef()
     let chatid=store.getChatId()
-    const userid =jwtDecode(store.getToken()).id
+    const userid =jwtDecode(localStorage.getItem('token')).id
+    const [allowWrite,setAllowWrite]=useState(false)
    
-    let socket =setSocket()
+    
     if(!chatid){
         chatid=localStorage.getItem('chatid')
     }
-   
+
+    useEffect(()=>{  
+     
+    },[])
+
     useEffect(()=>{
+        let socket =setSocket()
+        socket.emit("@joinChat",{chatid,userid})
+        socket.on('@joinChatOk',(req)=>{joinChatOk(req,input)})
+        getVision()
         storeChat.setB(b)
         store.setChatId(chatid)
-        getAllMembers().then(r=>getChatMessages()).catch(error=>{
+        getAllMembers().then(r=>{
+            getChatMessages();
+            let q=[...store.getMembers()].find((v)=>{return v.id===userid})
+            if(q.Roles[0].role==='admin'){
+                setAllowWrite(true);
+            }
+        }).catch(error=>{
+            if(error.response!=undefined)
             if(error.response.data=='Невозможно получить информацию'){
                 setWrite(false)
             }
         })
-        socket.emit("@joinChat",{chatid,userid})
-        socket.on('@joinChatOk',(req)=>{joinChatOk(req,input)})
+       
+
         return ()=>{clear()}
-    },[])
+      
+        
+        
+    },[storeChat.getReload()])
 
-
+   
+  
     useEffect(()=>{
         b.current.scrollTo(0,b.current.scrollHeight)
     },[storeChat.getLoaded()])
+
 
     useEffect(()=>{
         if(storeChat.getEmitMessage()){
@@ -144,7 +167,14 @@ const ChatConversation =observer(()=>{
         </div>
 
 
-    {store.getChatInfo()&&!store.getChatInfo().moot&& write&&<div className='intext'>
+    {((
+        store.getChatInfo()&&
+        !store.getChatInfo().moot&& 
+        write&& 
+        (store.getCheckSubscribe())&&
+        (store.getMembers().find((v)=>{return v.id==userid})!=undefined?store.getMembers().find((v)=>{return v.id==userid}).Bans[0]==undefined:true)
+       )|| 
+        allowWrite)&&<div className='intext'>
             <div className="file">
                 {(storeChat.getFileValue())&&<div className="dele" title="удалить файл" onClick={()=>{
                     input.current.value=''

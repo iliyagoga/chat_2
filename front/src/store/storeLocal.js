@@ -10,6 +10,7 @@ class StoreLocal{
     _fileValue=null
     _loaded=false
     _EmitMessage=false
+    _person={}
     constructor(){
         makeAutoObservable(this)
     }
@@ -75,6 +76,13 @@ class StoreLocal{
     }
     getEmitMessage(){
         return this._EmitMessage
+    }
+    getPerson(){
+        return this._person
+    }
+
+    setPerson(m){
+        this._person=m
     }
 }
 export default new StoreLocal()

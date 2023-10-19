@@ -9,6 +9,9 @@ async function searchController(req,res){
         const r=await Users.findAll({where:{
             nickname:{
                 [Op.regexp]: ''+text+''
+            },
+            id:{
+                [Op.not]: req.headers.id
             }
             },attributes:['id','name','nickname','sername','avatar']
         })

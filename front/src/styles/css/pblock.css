@@ -1,0 +1,20 @@
+.p_block {
+  display: flex;
+  align-items: center;
+}
+.p_block .img {
+  width: 5rem;
+  display: flex;
+  height: 5rem;
+  box-sizing: border-box;
+}
+.p_block .img img {
+  width: 5rem;
+  height: 5rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+  padding: 0;
+}
+.p_block .name {
+  font-size: 1.2rem;
+}

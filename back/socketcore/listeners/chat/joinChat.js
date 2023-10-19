@@ -7,6 +7,9 @@ const { onDeleteMessageChat } = require('./onDeleteMessageChat')
 const { setMootClient } = require('./setMootClient')
 const { sendInfoClient } = require('./sendInfoClient')
 const { setWriteChatClient, denyWriteChatClient } = require('./chatWrite')
+const { setBan } = require('./setBan')
+const { checkBan } = require('./checkBan')
+const { getVision } = require('./vision')
 
 function joinChat(socket,io){
     socket.on('@joinChat',(r)=>{
@@ -22,6 +25,10 @@ function joinChat(socket,io){
         sendInfoClient(socket,io,r)
         setWriteChatClient(socket,r)
         denyWriteChatClient(socket,r)
+        checkBan(socket,io)
+        setBan(socket,io)
+        getVision(socket,io)
+        
 
       
     })

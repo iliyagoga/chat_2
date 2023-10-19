@@ -8,6 +8,7 @@ import jwtDecode from "jwt-decode";
 import { routes } from '../utils/routes'
 import { axiosOb, inicialSocket } from '../utils/functions'
 import Alert from '../componets/alert'
+import { api } from '../utils/API'
 const MessagesList =observer(()=>{
     const [chats,setChats]=useState([])
     const [err,setErr]=useState(false)
@@ -21,7 +22,7 @@ const MessagesList =observer(()=>{
             socket=store.getSocket()
         }
 
-        axiosOb(config.backHost+routes.chat+routes.getLastMessageLocal,{sender:jwtDecode(localStorage.getItem('token')).id}).then(r=>{
+        axiosOb(api.backHost+api.chat.way+api.chat.getLastMessageLocal,{sender:jwtDecode(localStorage.getItem('token')).id}).then(r=>{
             r.data.map((v)=>{
                 if(v)
                 setChats((chats)=>[...chats,v])

@@ -7,5 +7,6 @@ export function clear(){
     socket.removeAllListeners('@joinRoom')
     socket.removeAllListeners('@sendServer')
     store.setSocket(null)
+    store.setMessages([])
 
 }

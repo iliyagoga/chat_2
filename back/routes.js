@@ -28,8 +28,8 @@ const routes={
         checkSubscribe:'/checkSubscribe',
         getChatMessages:'/getChatMessages',
         getAllMembers:'/getAllMembers',
-        setVision:'/setVision'
-        
+        setVision:'/setVision',
+        getPersonInfo:'/getPersonInfo'
     }
     
 }

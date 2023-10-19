@@ -51,6 +51,9 @@ const Messages=sequelize.define('Messages',{
     message:{type: DataTypes.STRING},
     createdate:{type:DataTypes.STRING}
 })
+const Bans=sequelize.define('Bans',{
+    id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
+})
 
 Users.hasMany(Roles)
 Roles.belongsTo(Users)
@@ -64,6 +67,12 @@ Users.belongsToMany(Chats, {through: 'Subscribers'})
 
 Chats.hasMany(Messages)
 Messages.belongsTo(Chats)
+
+Chats.hasMany(Bans)
+Bans.belongsTo(Chats)
+
+Users.hasMany(Bans)
+Bans.belongsTo(Users)
 
 Local.hasMany(Messages)
 Messages.belongsTo(Local)
@@ -79,5 +88,5 @@ Recipients.belongsTo(Messages)
 
 Chats.hasMany(Roles)
 Roles.belongsTo(Chats)
-module.exports={Users,Chats, Roles,Messages, Files, Subscribers,Local,Senders,Recipients}
+module.exports={Users,Chats, Roles,Messages, Files, Subscribers,Local,Senders,Recipients,Bans}
 

@@ -48,11 +48,15 @@ html {
 .info_block .img {
   width: 5rem;
   display: flex;
-  border-radius: 100%;
+  height: 5rem;
+  box-sizing: border-box;
 }
 .info_block .img img {
-  width: 80%;
-  border-radius: 100%;
+  width: 4rem;
+  height: 5rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+  box-sizing: border-box;
 }
 .info_block .name {
   font-size: 1.2rem;
@@ -86,6 +90,7 @@ html {
   width: 100%;
   border-radius: 20px;
   margin-top: 1rem;
+  height: 5rem;
   box-sizing: border-box;
   cursor: pointer;
   padding: 0 2rem;
@@ -528,12 +533,16 @@ html {
   width: 12.5rem;
 }
 .canal_modal .container_c .input,
-.canal_modal .container_c textarea {
+.canal_modal .container_c textarea,
+.canal_modal .container_c .type {
   padding: 1rem 2rem;
   border-radius: 20px;
   margin-top: 2rem;
   border: 0;
   font-size: 1.2rem;
+}
+.canal_modal .container_c .type {
+  background: white;
 }
 .canal_modal .container_c a {
   cursor: pointer;
@@ -934,9 +943,15 @@ html {
   height: 80%;
   z-index: 500;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 769px) and (max-width: 1224px) {
   .ms_modal .msm_body {
     width: 70%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .ms_modal .msm_body {
+    padding: 4rem 1rem;
+    width: 80%;
   }
 }
 .ms_modal .msm_body .remove {
@@ -958,9 +973,20 @@ html {
   padding: 0.5rem 1rem;
   border-radius: 30px;
   margin-top: 0.5rem;
-  display: flex;
   cursor: pointer;
+  flex-direction: row;
+  display: flex;
   align-items: center;
+}
+.ms_modal .msm_body .ms_body .member .mr {
+  width: 80%;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+.ms_modal .msm_body .ms_body .member .mr:hover {
+  border-radius: 30px;
+  background: #ebebeb;
 }
 .ms_modal .msm_body .ms_body .member img {
   -o-object-fit: contain;
@@ -983,8 +1009,13 @@ html {
   margin-left: auto;
   font-family: sans-serif;
 }
-.ms_modal .msm_body .ms_body .member:hover {
-  background: #ebebeb;
+.ms_modal .msm_body .ms_body .member .ms_img {
+  width: 2rem;
+  height: 2rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  cursor: pointer;
+  margin-left: 2rem;
 }
 
 .alert {
@@ -1003,4 +1034,25 @@ html {
 }
 .alert h2 {
   margin-top: 3rem;
+}
+
+.p_block {
+  display: flex;
+  align-items: center;
+}
+.p_block .img {
+  width: 5rem;
+  display: flex;
+  height: 5rem;
+  box-sizing: border-box;
+}
+.p_block .img img {
+  width: 5rem;
+  height: 5rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+  padding: 0;
+}
+.p_block .name {
+  font-size: 1.2rem;
 }
