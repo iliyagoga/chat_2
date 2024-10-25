@@ -1,5 +1,7 @@
+import { config } from "./config";
+
 export const api= {
-    backHost: 'http://93.80.162.11:5000',
+    backHost: config.backHost,
     login: {
         way: '/login',
         login: '/l',

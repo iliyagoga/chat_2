@@ -1,5 +1,5 @@
 export const config={
-    backHost:'http://93.80.162.11:5000/',
+    backHost:'http://localhost:5000/',
     apiReg:'login/reg',
     apiLogin:'login/l',
     apiCheck:'login/check',

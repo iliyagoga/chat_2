@@ -1,5 +1,7 @@
+import { config } from "./config";
+
 export const routes={
-backHost:'http://93.80.162.11:5000',
+backHost:config.backHost,
 messages: '/messages',
 conversationLocal: '/conversation/local/:id',
 conversationChat: '/conversation/chat/:id',

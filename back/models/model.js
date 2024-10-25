@@ -15,6 +15,11 @@ const Users=sequelize.define('Users',{
     date:{type: DataTypes.STRING},
     regdate:{type:DataTypes.STRING}
 })
+
+const AnonimusUser = sequelize.define('AniminUser',{
+    id: {type: DataTypes.INTEGER,autoIncrement: true, primaryKey: true},
+    sissionid:{type: DataTypes.STRING,allowNull: false}
+})
 const Chats=sequelize.define('Chats',{
     id: {type: DataTypes.STRING, primaryKey: true, unique:true},
     name: {type: DataTypes.STRING,unique:true},
@@ -88,5 +93,5 @@ Recipients.belongsTo(Messages)
 
 Chats.hasMany(Roles)
 Roles.belongsTo(Chats)
-module.exports={Users,Chats, Roles,Messages, Files, Subscribers,Local,Senders,Recipients,Bans}
+module.exports={Users,Chats, Roles,Messages, Files, Subscribers,Local,Senders,Recipients,Bans,AnonimusUser}
 
